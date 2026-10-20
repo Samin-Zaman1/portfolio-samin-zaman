@@ -10,7 +10,7 @@ test.describe("TC-01 primary navigation", () => {
       await nav.getByRole("link", { name: link.label, exact: true }).click();
 
       await expect(page).toHaveURL(link.href);
-      await expect(page.getByRole("heading", { level: 1 })).toHaveText(link.label);
+      await expect(page.getByRole("heading", { level: 1 })).toHaveText(link.heading);
       await expect(nav.getByRole("link", { name: link.label, exact: true })).toHaveAttribute(
         "aria-current",
         "page",

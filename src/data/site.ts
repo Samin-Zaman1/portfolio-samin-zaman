@@ -16,12 +16,13 @@ export const site = {
   resumePdf: "/resume/Samin_Zaman_Resume.pdf",
 };
 
-// Each page's <h1> must match its label; tests/navigation.spec.ts relies on it
+// `heading` is the page's <h1>; tests/navigation.spec.ts checks it after each click
 export const navLinks = [
-  { href: "/projects", label: "Projects" },
-  { href: "/skills", label: "Skills" },
-  { href: "/artifacts", label: "Test Artifacts" },
-  { href: "/resume", label: "Resume" },
+  { href: "/projects", label: "Projects", heading: "Projects" },
+  { href: "/framework", label: "Framework", heading: "My Testing Framework" },
+  { href: "/skills", label: "Skills", heading: "Skills" },
+  { href: "/artifacts", label: "Test Artifacts", heading: "Test Artifacts" },
+  { href: "/resume", label: "Resume", heading: "Resume" },
 ];
 
 export const stats = [

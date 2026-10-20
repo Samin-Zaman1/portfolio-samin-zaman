@@ -4,6 +4,7 @@ import { projects } from "../src/data/projects";
 export const pages = [
   { path: "/", heading: "Samin Zaman" },
   { path: "/projects", heading: "Projects" },
+  { path: "/framework", heading: "My Testing Framework" },
   { path: "/skills", heading: "Skills" },
   { path: "/artifacts", heading: "Test Artifacts" },
   { path: "/resume", heading: "Resume" },

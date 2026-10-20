@@ -2,6 +2,7 @@ import Link from "next/link";
 import ProjectCard from "@/components/ProjectCard";
 import { ButtonLink, Container, Eyebrow, PassMark, SectionTitle, tints } from "@/components/ui";
 import { testCases } from "@/data/artifacts";
+import { layers } from "@/data/framework";
 import { projects } from "@/data/projects";
 import { experience, services, site, stats } from "@/data/site";
 
@@ -97,6 +98,28 @@ export default function Home() {
               <ProjectCard key={project.slug} project={project} tint={tints[i % tints.length]} />
             ))}
           </div>
+        </section>
+
+        <section aria-labelledby="framework-heading" className="mt-20 grid items-center gap-8 rounded-3xl border border-border bg-surface p-6 sm:p-10 md:grid-cols-[1.2fr_1fr]">
+          <div>
+            <SectionTitle id="framework-heading">My Testing Framework</SectionTitle>
+            <p className="mt-3 leading-7 text-muted">
+              Layered tests from unit to production smoke checks, page objects and fixtures, assertions that verify logic,
+              known bugs tracked as tests, and a pipeline that only deploys when everything is green.
+            </p>
+            <ButtonLink href="/framework" className="mt-6">
+              Explore the framework
+            </ButtonLink>
+          </div>
+          <ol aria-label="Test layers" className="space-y-2">
+            {layers.map((layer) => (
+              <li key={layer.name} className="flex justify-center">
+                <span className={`${layer.width} ${layer.tint} rounded-xl px-4 py-2 text-center text-sm font-semibold`}>
+                  {layer.name}
+                </span>
+              </li>
+            ))}
+          </ol>
         </section>
 
         <section aria-labelledby="experience-heading" className="mt-20 rounded-3xl bg-mint p-6 sm:p-10">
