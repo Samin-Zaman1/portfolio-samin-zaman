@@ -3,7 +3,7 @@ import { testCases } from "../src/data/artifacts";
 import { projects } from "../src/data/projects";
 import { existsSync } from "node:fs";
 
-test.describe("TC-06 project data integrity", () => {
+test.describe("TC-07 project data integrity", () => {
   test("slugs are unique", () => {
     const slugs = projects.map((p) => p.slug);
     expect(new Set(slugs).size).toBe(slugs.length);

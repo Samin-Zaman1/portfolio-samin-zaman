@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { Container, PageHeader, PassMark } from "@/components/ui";
 import { sampleBug, testCases, testPlan } from "@/data/artifacts";
@@ -11,7 +12,7 @@ function Card({ id, title, children }: { id: string; title: string; children: Re
       <h2 id={id} className="text-xl font-semibold tracking-tight">
         {title}
       </h2>
-      <div className="mt-4 rounded-xl border border-border bg-surface p-6">{children}</div>
+      <div className="mt-4 rounded-2xl border border-border bg-surface p-6 sm:p-8">{children}</div>
     </section>
   );
 }
@@ -30,12 +31,12 @@ function List({ items }: { items: string[] }) {
 }
 
 function Label({ children }: { children: ReactNode }) {
-  return <h3 className="font-mono text-xs uppercase tracking-widest text-accent">{children}</h3>;
+  return <h3 className="text-xs font-semibold uppercase tracking-wider text-accent-strong">{children}</h3>;
 }
 
 const priorityStyle = {
   High: "bg-danger-soft text-danger",
-  Medium: "bg-accent-soft text-accent",
+  Medium: "bg-peach text-foreground",
   Low: "border border-border text-muted",
 };
 
@@ -45,7 +46,7 @@ export default function ArtifactsPage() {
       <PageHeader
         eyebrow="Documentation"
         title="Test Artifacts"
-        description="The test plan and test cases for this website, plus a sample bug report. Each test case below is automated in the repo."
+        description="The test plan and test cases for this website, plus a real bug report from one of my suites. Each test case below is automated in the repo."
       />
 
       <Card id="plan-heading" title="Test plan">
@@ -133,9 +134,12 @@ export default function ArtifactsPage() {
         </div>
       </Card>
 
-      <Card id="bug-heading" title="Sample bug report">
+      <Card id="bug-heading" title="Bug report">
         <p className="font-mono text-xs text-muted">
-          {sampleBug.id} · fictional product, real format
+          {sampleBug.id} · found by my{" "}
+          <Link href="/projects/saucedemo-qa-suite" className="font-medium text-accent-strong underline underline-offset-4">
+            SauceDemo QA suite
+          </Link>
         </p>
         <h3 className="mt-2 text-lg font-semibold tracking-tight">{sampleBug.title}</h3>
         <dl className="mt-4 grid gap-x-6 gap-y-3 text-sm sm:grid-cols-[10rem_1fr]">

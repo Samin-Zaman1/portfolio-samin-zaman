@@ -4,50 +4,36 @@ export type SkillGroup = {
   items: string[];
 };
 
-// TODO: keep only what you actually use, and add what is missing
+// From the resume and GitHub profile
 export const skillGroups: SkillGroup[] = [
   {
-    title: "Testing practice",
-    description: "How I decide what to test and how deeply.",
-    items: [
-      "Test planning",
-      "Risk-based testing",
-      "Functional & regression",
-      "Smoke & sanity",
-      "Exploratory testing",
-      "Cross-browser",
-      "UAT support",
-    ],
-  },
-  {
-    title: "Test design",
-    description: "Techniques for turning requirements into test cases.",
-    items: [
-      "Boundary value analysis",
-      "Equivalence partitioning",
-      "Decision tables",
-      "State transitions",
-      "BDD / Gherkin",
-    ],
-  },
-  {
-    title: "Automation",
-    description: "UI and end-to-end automation frameworks.",
-    items: ["Playwright", "Selenium WebDriver", "Cypress", "Page Object Model"],
+    title: "Test automation",
+    description: "Suites that catch regressions before users do.",
+    items: ["Playwright", "Page Object Model", "Custom fixtures", "Regression suites", "Test framework design", "CI integration"],
   },
   {
     title: "API & performance",
     description: "Testing below the UI.",
-    items: ["Postman", "REST APIs", "JSON schema validation", "JMeter", "k6"],
+    items: ["REST API testing", "Postman", "Swagger/OpenAPI", "Load testing", "Data validation"],
   },
   {
-    title: "Tooling & CI",
-    description: "Where tests live and how they run.",
-    items: ["Jira", "TestRail", "Git", "GitHub Actions", "axe-core"],
+    title: "Manual & functional",
+    description: "Turning requirements into the right checks.",
+    items: ["Test case design", "Exploratory testing", "Regression testing", "UAT", "Release sign-off"],
   },
   {
-    title: "Languages",
-    description: "What I write tests in.",
-    items: ["TypeScript", "JavaScript", "Java", "Python", "SQL"],
+    title: "Unit & data layers",
+    description: "Testing closer to the code.",
+    items: ["Vitest", "Testing Library", "PGlite", "SQL", "Zod"],
+  },
+  {
+    title: "Process",
+    description: "How quality fits into delivery.",
+    items: ["Test planning", "Test documentation", "Defect lifecycle", "Agile/Scrum", "AI-assisted testing"],
+  },
+  {
+    title: "Tools",
+    description: "Everyday toolbox.",
+    items: ["TypeScript", "JavaScript", "Git/GitHub", "GitHub Actions", "Chrome DevTools", "Jira", "axe-core"],
   },
 ];

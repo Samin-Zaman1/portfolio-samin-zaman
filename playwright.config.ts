@@ -23,9 +23,10 @@ export default defineConfig({
     { name: "webkit", testIgnore: /data\.spec\.ts/, use: { ...devices["Desktop Safari"] } },
     { name: "mobile-chrome", testIgnore: /data\.spec\.ts/, use: { ...devices["Pixel 7"] } },
   ],
-  // Tests run against a production build, as the Next.js docs recommend
+  // Tests run against the static export in out/, served like GitHub Pages
+  // serves it (clean URLs, 404.html for unknown paths). Run `npm run build` first.
   webServer: {
-    command: `npm run start -- --port ${PORT}`,
+    command: `npx serve out --listen ${PORT} --no-port-switching`,
     url: `http://localhost:${PORT}`,
     reuseExistingServer: !isCI,
     timeout: 120_000,

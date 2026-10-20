@@ -25,6 +25,15 @@ test.describe("TC-01 primary navigation", () => {
   });
 });
 
+test("TC-06 resume PDF is downloadable", async ({ page, request }) => {
+  await page.goto("/resume");
+  const href = await page.getByRole("link", { name: "Download PDF" }).getAttribute("href");
+  expect(href).toBeTruthy();
+  const response = await request.get(href!);
+  expect(response.status()).toBe(200);
+  expect(response.headers()["content-type"]).toContain("application/pdf");
+});
+
 test.describe("TC-05 no console errors", () => {
   for (const { path } of pages) {
     test(`on ${path}`, async ({ page }) => {

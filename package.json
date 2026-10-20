@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
-    "test": "playwright test"
+    "test": "playwright test",
+    "postbuild": "node scripts/fix-export-segments.mjs"
   },
   "dependencies": {
     "next": "16.4.2",
@@ -24,6 +25,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.2",
+    "serve": "^14.2.6",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

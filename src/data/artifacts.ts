@@ -21,8 +21,8 @@ export const testPlan = {
     { risk: "A nav link points to a page that was renamed", mitigation: "Navigation spec clicks every link and checks the heading" },
     { risk: "Styling changes reduce colour contrast", mitigation: "axe-core runs on every page in every browser" },
   ],
-  entryCriteria: ["Production build succeeds", "Lint and type checks pass"],
-  exitCriteria: ["All automated tests pass in all browsers", "No serious or critical accessibility violations"],
+  entryCriteria: ["Static export builds", "Lint and type checks pass"],
+  exitCriteria: ["All automated tests pass in all browsers", "No accessibility violations", "Only then: deploy to GitHub Pages"],
 };
 
 export type TestCase = {
@@ -77,6 +77,14 @@ export const testCases: TestCase[] = [
   },
   {
     id: "TC-06",
+    title: "Resume PDF is downloadable",
+    steps: ["Open /resume", "Request the file behind Download PDF"],
+    expected: "HTTP 200 with content type application/pdf",
+    priority: "High",
+    spec: "tests/navigation.spec.ts",
+  },
+  {
+    id: "TC-07",
     title: "Project data is complete and unique",
     steps: ["Read every entry in src/data/projects.ts"],
     expected: "Slugs are unique and URL-safe; required text fields are non-empty",
@@ -85,22 +93,22 @@ export const testCases: TestCase[] = [
   },
 ];
 
-// A sample defect, written in the format I use. The product is fictional.
+// A real defect from the SauceDemo QA suite (tests/known-bugs.spec.ts there)
 export const sampleBug = {
-  id: "BUG-142",
-  title: "Checkout accepts an expired card when the expiry month is the current month",
+  id: "SD-01",
+  title: "Checkout overview shows an unrounded item total on the standard purchase path",
   severity: "Major",
   priority: "High",
-  environment: "Staging, build 2.8.1 · Chrome 141 / Windows 11",
-  preconditions: "Logged-in user with one item in the cart",
+  environment: "saucedemo.com · standard_user · Chromium (Playwright)",
+  preconditions: "Logged in as standard_user with an empty cart",
   steps: [
-    "Go to Checkout and choose Card",
-    "Enter test card 4111 1111 1111 1111",
-    "Set expiry to the current month and last year (e.g. 10/25 in October 2026)",
-    "Click Pay",
+    "Add every product except Sauce Labs Backpack to the cart",
+    "Open the cart and click Checkout",
+    "Enter a first name, last name and postal code, then click Continue",
+    "Read the Item total on the overview page",
   ],
-  expected: "The form shows “Card has expired” and the order is not created",
-  actual: "Payment form submits, the gateway declines, and the user sees a generic “Something went wrong” error. An empty order is left in Pending state.",
+  expected: "Item total: $99.95",
+  actual: "Item total: $99.94999999999999, a floating-point sum displayed without rounding",
   notes:
-    "Expiry validation compares only the month. Boundary cases: last month of last year (rejected correctly), current month of last year (accepted, bug), current month of this year (accepted, correct).",
+    "Happens on the main happy path, not a deliberately broken account. Covered by an expected-failure test (test.fail()) that asserts the correct total in whole cents; if the bug is fixed, the run goes red so the test gets promoted.",
 };

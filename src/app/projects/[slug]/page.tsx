@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Container, PageHeader, PassMark, Tag } from "@/components/ui";
+import { ButtonAnchor, Container, PageHeader, PassMark, Tag } from "@/components/ui";
 import { getProject, projects } from "@/data/projects";
+
+// Static export: only the slugs listed here exist; anything else is a 404
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -16,16 +19,23 @@ export async function generateMetadata({
   return project ? { title: project.title, description: project.summary } : {};
 }
 
-function Section({ title, items }: { title: string; items: string[] }) {
+function Section({ title, items, tone = "pass" }: { title: string; items: string[]; tone?: "pass" | "bug" }) {
+  const id = `${title.toLowerCase().replace(/\W+/g, "-")}-heading`;
   return (
-    <section aria-labelledby={`${title}-heading`}>
-      <h2 id={`${title}-heading`} className="text-lg font-semibold tracking-tight">
+    <section aria-labelledby={id} className="rounded-2xl border border-border bg-surface p-6">
+      <h2 id={id} className="text-lg font-bold tracking-tight">
         {title}
       </h2>
-      <ul className="mt-3 space-y-2 leading-7 text-muted">
+      <ul className="mt-4 space-y-3 text-sm leading-6">
         {items.map((item) => (
           <li key={item} className="flex gap-3">
-            <PassMark />
+            {tone === "bug" ? (
+              <span aria-hidden className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-danger-soft text-[0.7rem] font-bold text-danger">
+                ✕
+              </span>
+            ) : (
+              <PassMark />
+            )}
             <span>{item}</span>
           </li>
         ))}
@@ -42,50 +52,68 @@ export default async function ProjectPage({
   if (!project) notFound();
 
   return (
-    <Container>
-      <Link href="/projects" className="text-sm text-muted hover:text-foreground">
-        ← All projects
-      </Link>
-      <div className="mt-6">
-        <PageHeader
-          eyebrow={project.category}
-          title={project.title}
-          description={project.context}
-        />
+    <>
+      <div className="hero-glow">
+        <Container>
+          <Link href="/projects" className="text-sm font-medium text-muted hover:text-accent-strong">
+            ← All projects
+          </Link>
+          <div className="mt-6">
+            <PageHeader eyebrow={`${project.kind} · ${project.category}`} title={project.title} description={project.context} />
+          </div>
+
+          {(project.repoUrl || project.reportUrl) && (
+            <div className="mt-8 flex flex-wrap gap-3">
+              {project.repoUrl && (
+                <ButtonAnchor href={project.repoUrl} target="_blank" rel="noreferrer">
+                  View repository ↗
+                </ButtonAnchor>
+              )}
+              {project.reportUrl && (
+                <ButtonAnchor href={project.reportUrl} target="_blank" rel="noreferrer" variant="secondary">
+                  Live test report ↗
+                </ButtonAnchor>
+              )}
+            </div>
+          )}
+
+          {project.stats && (
+            <dl className="mt-10 flex flex-wrap gap-4">
+              {project.stats.map((s) => (
+                <div key={s.label} className="flex min-w-36 flex-col rounded-2xl border border-border bg-surface/90 px-5 py-4">
+                  <dt className="text-sm text-muted">{s.label}</dt>
+                  <dd className="order-first text-3xl font-extrabold tracking-tight text-accent-strong">{s.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+        </Container>
       </div>
 
-      {(project.repoUrl || project.liveUrl) && (
-        <div className="mt-6 flex flex-wrap gap-3 text-sm font-medium">
-          {project.repoUrl && (
-            <a href={project.repoUrl} target="_blank" rel="noreferrer" className="rounded-full bg-foreground px-4 py-2 text-background hover:opacity-85">
-              View repository
-            </a>
+      <Container className="pt-0 sm:pt-0">
+        <div className="grid gap-5 md:grid-cols-2">
+          <Section title="Scope" items={project.scope} />
+          <Section title="Approach" items={project.approach} />
+          {project.bugs && (
+            <div className="md:col-span-2">
+              <Section title="Bugs found" items={project.bugs} tone="bug" />
+            </div>
           )}
-          {project.liveUrl && (
-            <a href={project.liveUrl} target="_blank" rel="noreferrer" className="rounded-full border border-border px-4 py-2 hover:border-foreground">
-              Live site
-            </a>
-          )}
+          <section aria-labelledby="tools-heading" className="rounded-2xl border border-border bg-surface p-6">
+            <h2 id="tools-heading" className="text-lg font-bold tracking-tight">
+              Tools
+            </h2>
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {project.tools.map((tool) => (
+                <li key={tool}>
+                  <Tag>{tool}</Tag>
+                </li>
+              ))}
+            </ul>
+          </section>
+          <Section title="Outcomes" items={project.outcomes} />
         </div>
-      )}
-
-      <div className="mt-12 grid gap-10 md:grid-cols-2">
-        <Section title="Scope" items={project.scope} />
-        <Section title="Approach" items={project.approach} />
-        <section aria-labelledby="tools-heading">
-          <h2 id="tools-heading" className="text-lg font-semibold tracking-tight">
-            Tools
-          </h2>
-          <ul className="mt-3 flex flex-wrap gap-2">
-            {project.tools.map((tool) => (
-              <li key={tool}>
-                <Tag>{tool}</Tag>
-              </li>
-            ))}
-          </ul>
-        </section>
-        <Section title="Outcomes" items={project.outcomes} />
-      </div>
-    </Container>
+      </Container>
+    </>
   );
 }

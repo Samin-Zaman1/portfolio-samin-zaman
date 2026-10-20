@@ -1,30 +1,29 @@
+import Link from "next/link";
 import { site } from "@/data/site";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border">
-      <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-6 text-sm text-muted sm:px-6">
+    <footer className="mt-16 border-t border-border bg-surface">
+      <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-8 text-sm text-muted sm:px-6">
         <p>
-          {site.name} · {site.role}
+          <span className="font-semibold text-foreground">{site.name}</span> · {site.role} · {site.location}
         </p>
-        <ul className="flex gap-5">
+        <ul className="flex flex-wrap gap-5">
           <li>
-            <a href={`mailto:${site.email}`} className="hover:text-foreground">
+            <a href={`mailto:${site.email}`} className="hover:text-accent">
               Email
             </a>
           </li>
-          {site.links.map((link) => (
-            <li key={link.label}>
-              <a
-                href={link.href}
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-foreground"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
+          <li>
+            <a href={site.github} target="_blank" rel="noreferrer" className="hover:text-accent">
+              GitHub
+            </a>
+          </li>
+          <li>
+            <Link href="/resume" className="hover:text-accent">
+              Resume
+            </Link>
+          </li>
         </ul>
       </div>
     </footer>
