@@ -16,12 +16,10 @@ export default defineConfig({
     screenshot: "only-on-failure",
   },
   projects: [
-    // Pure data checks: no browser needed, run once
-    { name: "data", testMatch: /data\.spec\.ts/ },
-    { name: "chromium", testIgnore: /data\.spec\.ts/, use: { ...devices["Desktop Chrome"] } },
-    { name: "firefox", testIgnore: /data\.spec\.ts/, use: { ...devices["Desktop Firefox"] } },
-    { name: "webkit", testIgnore: /data\.spec\.ts/, use: { ...devices["Desktop Safari"] } },
-    { name: "mobile-chrome", testIgnore: /data\.spec\.ts/, use: { ...devices["Pixel 7"] } },
+    { name: "chromium", use: { ...devices["Desktop Chrome"] } },
+    { name: "firefox", use: { ...devices["Desktop Firefox"] } },
+    { name: "webkit", use: { ...devices["Desktop Safari"] } },
+    { name: "mobile-chrome", use: { ...devices["Pixel 7"] } },
   ],
   // Tests run against the static export in out/, served like GitHub Pages
   // serves it (clean URLs, 404.html for unknown paths). Run `npm run build` first.

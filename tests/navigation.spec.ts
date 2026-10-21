@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { navLinks } from "../src/data/site";
 import { pages } from "./pages";
 
-test.describe("TC-01 primary navigation", () => {
+test.describe("primary navigation", () => {
   for (const link of navLinks) {
     test(`reaches ${link.label}`, async ({ page }) => {
       await page.goto("/");
@@ -19,13 +19,13 @@ test.describe("TC-01 primary navigation", () => {
   }
 
   test("site name links back home", async ({ page }) => {
-    await page.goto("/skills");
+    await page.goto("/projects");
     await page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Samin Zaman" }).click();
     await expect(page).toHaveURL("/");
   });
 });
 
-test("TC-06 resume PDF is downloadable", async ({ page, request }) => {
+test("resume PDF is downloadable", async ({ page, request }) => {
   await page.goto("/resume");
   const href = await page.getByRole("link", { name: "Download PDF" }).getAttribute("href");
   expect(href).toBeTruthy();
@@ -34,7 +34,7 @@ test("TC-06 resume PDF is downloadable", async ({ page, request }) => {
   expect(response.headers()["content-type"]).toContain("application/pdf");
 });
 
-test.describe("TC-05 no console errors", () => {
+test.describe("no console errors", () => {
   for (const { path } of pages) {
     test(`on ${path}`, async ({ page }) => {
       const errors: string[] = [];

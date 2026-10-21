@@ -1,18 +1,14 @@
-import { ButtonLink, Container, PageHeader } from "@/components/ui";
+import Link from "next/link";
+import { Container, linkStyle } from "@/components/ui";
 
 export default function NotFound() {
   return (
-    <div className="hero-glow flex flex-1">
-      <Container>
-        <PageHeader
-          eyebrow="404 · expected: page · actual: nothing"
-          title="Page not found"
-          description="This URL doesn't match anything on the site. Consider it a reproducible bug report."
-        />
-        <ButtonLink href="/" className="mt-8">
-          Back to home
-        </ButtonLink>
-      </Container>
-    </div>
+    <Container>
+      <h1 className="text-3xl font-bold tracking-tight">Page not found</h1>
+      <p className="mt-3 text-muted">Expected a page. Got nothing.</p>
+      <Link href="/" className={`${linkStyle} mt-6 inline-block text-sm font-medium`}>
+        Back to home
+      </Link>
+    </Container>
   );
 }
