@@ -1,5 +1,9 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 import type { Project } from "@/data/projects";
+import { qaDocs } from "@/data/qa";
+
+const hasQaDoc = (slug: string) => qaDocs.some((d) => d.slug === slug);
 
 export function Container({ children }: { children: ReactNode }) {
   return <div className="mx-auto w-full max-w-2xl px-5 py-14 sm:py-20">{children}</div>;
@@ -25,10 +29,10 @@ export function ProjectList({ items }: { items: Project[] }) {
         <li key={p.slug} className="py-5">
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
             <h3 className="font-semibold">
-              {p.repoUrl ? (
-                <a href={p.repoUrl} target="_blank" rel="noreferrer" className={linkStyle}>
+              {hasQaDoc(p.slug) ? (
+                <Link href={`/projects/${p.slug}`} className={linkStyle}>
                   {p.title}
-                </a>
+                </Link>
               ) : (
                 p.title
               )}
@@ -37,11 +41,11 @@ export function ProjectList({ items }: { items: Project[] }) {
           </div>
           <p className="mt-1.5 text-sm leading-6 text-muted">
             {p.summary}
-            {p.reportUrl && (
+            {p.repoUrl && (
               <>
                 {" "}
-                <a href={p.reportUrl} target="_blank" rel="noreferrer" className={`${linkStyle} text-foreground`}>
-                  Test report
+                <a href={p.repoUrl} target="_blank" rel="noreferrer" className={`${linkStyle} text-foreground`}>
+                  Repo<span className="sr-only"> for {p.title}</span>
                 </a>
               </>
             )}
