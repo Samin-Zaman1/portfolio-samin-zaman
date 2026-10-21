@@ -148,7 +148,7 @@ export const qaDocs: QaDoc[] = [
       scope: ["Point of sale", "Batch stock and expiry", "Discounts and credit", "Role permissions", "Post-deploy smoke"],
       outOfScope: ["Accuracy of AI invoice reading", "Hosting providers’ uptime", "Load testing"],
       levels: "Unit (Vitest) · Component (Testing Library) · Database (PGlite) · E2E (Playwright) · Smoke (production)",
-      environment: "Node 24 · local Supabase in Docker · Chromium and Pixel 7 on PRs · Firefox and WebKit nightly",
+      environment: "Node 24 · local Supabase in Docker · Chromium and Pixel 7 on PRs · Firefox and WebKit on demand",
       entry: "All migrations apply; the E2E suite refuses to run unless the database is localhost.",
       exit: "Every layer green on the PR; smoke tests green after deploy, otherwise automatic rollback.",
     },
