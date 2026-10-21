@@ -33,15 +33,6 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    slug: "recordguard",
-    title: "RecordGuard",
-    kind: "Personal",
-    summary: "Validation library at 100% coverage. Package test installs the built tarball on Node 22 and 24.",
-    tools: ["TypeScript", "Vitest"],
-    repoUrl: gh("recordguard"),
-    featured: true,
-  },
-  {
     slug: "mini-library",
     title: "Mini Library",
     kind: "Personal",
@@ -56,6 +47,7 @@ export const projects: Project[] = [
     summary: "LMS used as a test target. API unit tests in CI; strategy and defects in TESTING.md.",
     tools: ["Jest", "NestJS", "GitHub Actions"],
     repoUrl: gh("learners-hub"),
+    featured: true,
   },
   {
     slug: "sqa-job-alert",
