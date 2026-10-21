@@ -15,11 +15,11 @@ const layers = [
 ];
 
 const rules = [
-  "Page objects find elements the way a user would.",
-  "Fixtures instead of setup code.",
-  "Expected values are computed, not hard-coded.",
-  "No sleeps.",
-  "A known bug stays a failing test until it's fixed.",
+  "Page Object Model; locators by role and label before test IDs.",
+  "Shared setup in fixtures, not beforeEach blocks.",
+  "Expected results calculated from the data under test, not hard-coded.",
+  "No fixed waits; rely on auto-waiting assertions.",
+  "Open defects tracked as expected-failure tests.",
 ];
 
 const snippet = `test.fail(
@@ -37,7 +37,7 @@ export default function FrameworkPage() {
     <Container>
       <h1 className="text-3xl font-bold tracking-tight">My Testing Framework</h1>
       <p className="mt-3 max-w-xl leading-7 text-muted">
-        The structure I start every suite with. The full version is in the{" "}
+        How I structure a test suite. The full version is in the{" "}
         <a href={repo} target="_blank" rel="noreferrer" className={`${linkStyle} text-foreground`}>
           reference repo
         </a>
@@ -68,7 +68,8 @@ export default function FrameworkPage() {
           <code>{snippet}</code>
         </pre>
         <p className="mt-3 text-sm text-muted">
-          Passes while the bug exists. Fails the day it&apos;s fixed, so someone notices.
+          The test asserts the correct total and is marked <code className="font-mono">test.fail()</code>. CI stays green
+          while the defect is open and fails once it&apos;s fixed, so the test gets promoted to a regular regression check.
         </p>
       </Section>
     </Container>
