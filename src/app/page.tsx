@@ -1,40 +1,49 @@
 import Link from "next/link";
-import { Container, ProjectList, Section, linkStyle } from "@/components/ui";
+import { Band, Button, Container, ProjectList, Section, linkStyle } from "@/components/ui";
 import { projects } from "@/data/projects";
-import { asset, experience, site } from "@/data/site";
+import { asset, education, experience, site } from "@/data/site";
 
 export default function Home() {
   const job = experience[0];
 
   return (
-    <Container>
-      <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{site.name}</h1>
-      <p className="mt-1 text-accent">{site.role}</p>
-      <p className="mt-6 max-w-xl leading-7 text-muted">{site.intro}</p>
-      <p className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium">
-        <a href={`mailto:${site.email}`} className={linkStyle}>{site.email}</a>
-        <a href={site.github} target="_blank" rel="noreferrer" className={linkStyle}>GitHub</a>
-        <a href={asset(site.resumePdf)} className={linkStyle}>Resume (PDF)</a>
-      </p>
-
-      <Section id="work-heading" title="Selected work">
-        <ProjectList items={projects.filter((p) => p.featured)} />
-        <p className="mt-4 text-sm">
-          <Link href="/projects" className={linkStyle}>All projects</Link>
-          <span className="text-muted"> · </span>
-          <Link href="/framework" className={linkStyle}>How I test</Link>
-        </p>
-      </Section>
-
-      <Section id="experience-heading" title="Experience">
-        <div className="flex flex-wrap items-baseline justify-between gap-x-4">
-          <p className="font-semibold">
-            {job.role}, {job.company}
-          </p>
-          <p className="text-sm text-muted">{job.period}</p>
+    <>
+      <Band>
+        <p className="text-sm font-semibold text-accent-strong">{site.role}</p>
+        <h1 className="mt-2 text-4xl font-extrabold tracking-tight sm:text-5xl">{site.name}</h1>
+        <p className="mt-5 max-w-xl text-lg leading-8 text-muted">{site.intro}</p>
+        <div className="mt-7 flex flex-wrap gap-3">
+          <Button href={`mailto:${site.email}`}>Email me</Button>
+          <Button href={asset(site.resumePdf)} variant="outline">Resume (PDF)</Button>
+          <Button href={site.github} target="_blank" rel="noreferrer" variant="outline">GitHub</Button>
         </div>
-        <p className="mt-1 text-sm text-muted">{job.where}</p>
-      </Section>
-    </Container>
+      </Band>
+
+      <Container>
+        <Section id="work-heading" title="Selected work">
+          <ProjectList items={projects.filter((p) => p.featured)} />
+          <p className="mt-5 text-sm font-medium">
+            <Link href="/projects" className={linkStyle}>All projects and test docs</Link>
+            <span className="mx-2 text-border">|</span>
+            <Link href="/framework" className={linkStyle}>How I test</Link>
+          </p>
+        </Section>
+
+        <div className="mt-14 grid gap-8 sm:grid-cols-2">
+          <Section id="experience-heading" title="Experience" className="">
+            <p className="font-bold">{job.role}</p>
+            <p className="text-sm text-muted">
+              {job.company} · {job.where}
+            </p>
+            <p className="mt-1 font-mono text-xs text-accent-strong">{job.period}</p>
+          </Section>
+          <Section id="education-heading" title="Education" className="">
+            <p className="font-bold">{education.degree}</p>
+            <p className="text-sm text-muted">{education.school}</p>
+            <p className="mt-1 font-mono text-xs text-accent-strong">{education.period}</p>
+          </Section>
+        </div>
+      </Container>
+    </>
   );
 }

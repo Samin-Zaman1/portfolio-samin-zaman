@@ -8,15 +8,16 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header>
+    <header className="border-b border-border bg-white">
       <nav
         aria-label="Main"
-        className="mx-auto flex w-full max-w-2xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-5 pt-8 text-sm"
+        className="mx-auto flex w-full max-w-3xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-5 py-4 text-sm"
       >
-        <Link href="/" className="font-semibold">
+        <Link href="/" className="flex items-center gap-2 font-bold">
+          <span aria-hidden className="size-2.5 rounded-sm bg-accent" />
           {site.name}
         </Link>
-        <ul className="flex gap-5">
+        <ul className="flex gap-1">
           {navLinks.map((link) => {
             const active = pathname === link.href || pathname.startsWith(`${link.href}/`);
             return (
@@ -24,7 +25,9 @@ export default function Navbar() {
                 <Link
                   href={link.href}
                   aria-current={active ? "page" : undefined}
-                  className={active ? "text-accent" : "text-muted hover:text-foreground"}
+                  className={`block rounded-md px-3 py-1.5 font-medium ${
+                    active ? "bg-mint text-accent-strong" : "text-muted hover:text-foreground"
+                  }`}
                 >
                   {link.label}
                 </Link>

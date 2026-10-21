@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Container, Section, linkStyle } from "@/components/ui";
+import { Band, Chip, Container, Section, linkStyle } from "@/components/ui";
 
 export const metadata: Metadata = { title: "My Testing Framework" };
 
@@ -34,29 +34,32 @@ const snippet = `test.fail(
 
 export default function FrameworkPage() {
   return (
-    <Container>
-      <h1 className="text-3xl font-bold tracking-tight">My Testing Framework</h1>
-      <p className="mt-3 max-w-xl leading-7 text-muted">
+    <>
+    <Band>
+      <h1 className="text-4xl font-extrabold tracking-tight">My Testing Framework</h1>
+      <p className="mt-4 max-w-xl text-lg leading-8 text-muted">
         How I structure a test suite. The full version is in the{" "}
         <a href={repo} target="_blank" rel="noreferrer" className={`${linkStyle} text-foreground`}>
           reference repo
         </a>
         .
       </p>
-
+    </Band>
+    <Container>
       <Section id="layers-heading" title="Layers">
-        <ul className="divide-y divide-border border-y border-border text-sm">
-          {layers.map(([layer, tool]) => (
-            <li key={layer} className="flex justify-between gap-4 py-2.5">
-              <span className="font-medium">{layer}</span>
-              <span className="text-muted">{tool}</span>
+        <ol className="divide-y divide-border border-y border-border">
+          {layers.map(([layer, tool], i) => (
+            <li key={layer} className="flex items-center gap-4 py-3">
+              <span className="font-mono text-xs text-accent-strong">{String(i + 1).padStart(2, "0")}</span>
+              <span className="flex-1 font-semibold">{layer}</span>
+              <Chip>{tool}</Chip>
             </li>
           ))}
-        </ul>
+        </ol>
       </Section>
 
       <Section id="rules-heading" title="Rules">
-        <ol className="list-decimal space-y-2 pl-5 text-sm leading-6 marker:text-muted">
+        <ol className="list-decimal space-y-2 pl-5 leading-7 marker:font-semibold marker:text-accent">
           {rules.map((r) => (
             <li key={r}>{r}</li>
           ))}
@@ -64,7 +67,7 @@ export default function FrameworkPage() {
       </Section>
 
       <Section id="example-heading" title="Example">
-        <pre tabIndex={0} aria-label="Example test" className="overflow-x-auto rounded-lg bg-mint p-4 font-mono text-[0.8rem] leading-6">
+        <pre tabIndex={0} aria-label="Example test" className="overflow-x-auto rounded-lg bg-foreground p-5 font-mono text-[0.8rem] leading-6 text-mint-strong">
           <code>{snippet}</code>
         </pre>
         <p className="mt-3 text-sm text-muted">
@@ -73,5 +76,6 @@ export default function FrameworkPage() {
         </p>
       </Section>
     </Container>
+    </>
   );
 }

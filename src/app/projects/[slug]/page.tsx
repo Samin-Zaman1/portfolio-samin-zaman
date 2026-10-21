@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Container, Section, linkStyle } from "@/components/ui";
+import { Band, Button, Container, Section, linkStyle } from "@/components/ui";
 import { projects } from "@/data/projects";
 import { getQaDoc, qaDocs, type TestCase } from "@/data/qa";
 
@@ -30,11 +30,11 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
 function Case({ tc, repoUrl }: { tc: TestCase; repoUrl: string }) {
   return (
     <article aria-labelledby={`${tc.id}-title`} className="py-5">
-      <p className="font-mono text-xs text-muted">
+      <p className="font-mono text-xs text-accent-strong">
         {tc.id} · {tc.scenario} · {tc.type}
-        {tc.open && <span className="ml-2 rounded bg-[#fdecea] px-1.5 py-0.5 text-[#a1251b]">open defect</span>}
+        {tc.open && <span className="ml-2 rounded bg-danger-soft px-1.5 py-0.5 text-danger">open defect</span>}
       </p>
-      <h3 id={`${tc.id}-title`} className="mt-1 font-semibold">
+      <h3 id={`${tc.id}-title`} className="mt-1 font-bold">
         {tc.title}
       </h3>
       <dl className="mt-3 grid gap-x-4 gap-y-2 text-sm leading-6 sm:grid-cols-[8.5rem_1fr]">
@@ -66,19 +66,26 @@ export default async function ProjectQaPage({ params }: PageProps<"/projects/[sl
   const { plan } = doc;
 
   return (
-    <Container>
-      <Link href="/projects" className="text-sm text-muted hover:text-foreground">
+    <>
+    <Band>
+      <Link href="/projects" className="text-sm font-medium text-muted hover:text-accent-strong">
         ← Projects
       </Link>
-      <h1 className="mt-6 text-3xl font-bold tracking-tight">{project.title}</h1>
-      <p className="mt-3 leading-7 text-muted">{project.summary}</p>
-      <p className="mt-4 flex gap-5 text-sm font-medium">
-        <a href={project.repoUrl} target="_blank" rel="noreferrer" className={linkStyle}>Repository</a>
+      <p className="mt-6 text-sm font-semibold text-accent-strong">Test documentation</p>
+      <h1 className="mt-1 text-4xl font-extrabold tracking-tight">{project.title}</h1>
+      <p className="mt-4 max-w-xl text-lg leading-8 text-muted">{project.summary}</p>
+      <div className="mt-6 flex flex-wrap gap-3">
+        <Button href={project.repoUrl} target="_blank" rel="noreferrer">Repository</Button>
         {project.reportUrl && (
-          <a href={project.reportUrl} target="_blank" rel="noreferrer" className={linkStyle}>Test report</a>
+          <Button href={project.reportUrl} target="_blank" rel="noreferrer" variant="outline">Test report</Button>
         )}
+      </div>
+      <p className="mt-6 font-mono text-xs text-muted">
+        {doc.requirements.length} requirements · {doc.scenarios.length} scenarios · {doc.cases.length} test cases
+        {doc.defects && ` · ${doc.defects.length} defects`}
       </p>
-
+    </Band>
+    <Container>
       <Section id="req-heading" title="1 · Requirement analysis">
         <ul className="space-y-2 text-sm leading-6">
           {doc.requirements.map((r) => (
@@ -126,7 +133,7 @@ export default async function ProjectQaPage({ params }: PageProps<"/projects/[sl
           <ul className="space-y-2 text-sm leading-6">
             {doc.defects.map((d) => (
               <li key={d.text} className="grid grid-cols-[3.5rem_1fr] gap-2">
-                <span className={`font-mono text-xs leading-6 ${d.status === "Open" ? "text-[#a1251b]" : "text-accent"}`}>
+                <span className={`font-mono text-xs leading-6 ${d.status === "Open" ? "text-danger" : "text-accent-strong"}`}>
                   {d.status}
                 </span>
                 <span>{d.text}</span>
@@ -136,5 +143,6 @@ export default async function ProjectQaPage({ params }: PageProps<"/projects/[sl
         </Section>
       )}
     </Container>
+    </>
   );
 }
