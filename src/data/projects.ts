@@ -45,8 +45,8 @@ export const projects: Project[] = [
     slug: "mini-library",
     title: "Mini Library",
     kind: "Personal",
-    summary: "Practice target for unit, in-memory Postgres and E2E tests.",
-    tools: ["Vitest", "PGlite", "Playwright"],
+    summary: "Practice target for layered testing. Unit tests in CI; database and E2E layers in progress.",
+    tools: ["Vitest", "GitHub Actions"],
     repoUrl: gh("mini-library"),
   },
   {
