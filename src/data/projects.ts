@@ -53,9 +53,10 @@ export const projects: Project[] = [
     slug: "sqa-job-alert",
     title: "SQA Job Alert",
     kind: "Personal",
-    summary: "Job scraper whose title filter is checked against ~115 real titles and look-alikes.",
+    summary: "Built for my own job search: alerts me to new SQA jobs on Bdjobs, LinkedIn, Jobgether and remote boards. Title filter checked against ~115 real titles and look-alikes.",
     tools: ["Python", "unittest"],
     repoUrl: gh("sqa-job-alert"),
+    featured: true,
   },
   {
     slug: "portfolio-samin-zaman",
