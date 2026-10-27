@@ -11,10 +11,10 @@ export function Container({ children }: { children: ReactNode }) {
   return <div className={`${width} py-12 sm:py-16`}>{children}</div>;
 }
 
-// Header band for the top of a page: neutral, with a faint dot grid
+// Header band for the top of a page
 export function Band({ children }: { children: ReactNode }) {
   return (
-    <div className="bg-grid border-b border-border bg-surface">
+    <div className="border-b border-border">
       <div className={`${width} py-12 sm:py-16`}>{children}</div>
     </div>
   );
@@ -33,8 +33,7 @@ export function Section({
 }) {
   return (
     <section aria-labelledby={id} className={className}>
-      <h2 id={id} className="flex items-center gap-3 text-xl font-bold tracking-tight">
-        <span aria-hidden className="h-5 w-1 rounded-full bg-accent" />
+      <h2 id={id} className="text-xl font-bold tracking-tight">
         {title}
       </h2>
       <div className="mt-6">{children}</div>
@@ -70,7 +69,7 @@ export function ProjectList({ items }: { items: Project[] }) {
       {items.map((p) => (
         <li
           key={p.slug}
-          className="flex flex-col rounded-xl border border-border bg-white p-6 transition hover:border-accent/40 hover:shadow-[0_6px_24px_-12px_rgb(15_34_25/0.25)]"
+          className="flex flex-col rounded-xl border border-border bg-white p-6"
         >
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
             <h3 className="font-bold">
@@ -89,13 +88,10 @@ export function ProjectList({ items }: { items: Project[] }) {
             )}
           </div>
           <p className="mt-2 text-[0.95rem] leading-7 text-muted">{p.summary}</p>
-          <ul className="mt-auto flex flex-wrap gap-1.5 pt-4" aria-label={`${p.title} tools`}>
-            {p.tools.map((t) => (
-              <li key={t}>
-                <Chip>{t}</Chip>
-              </li>
-            ))}
-          </ul>
+          <p className="mt-auto pt-4 text-xs text-muted">
+            <span className="sr-only">Tools: </span>
+            {p.tools.join(" · ")}
+          </p>
         </li>
       ))}
     </ul>

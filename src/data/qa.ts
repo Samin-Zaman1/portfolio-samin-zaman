@@ -475,64 +475,6 @@ export const qaDocs: QaDoc[] = [
       },
     ],
   },
-  {
-    slug: "portfolio-samin-zaman",
-    requirements: [
-      { id: "R1", text: "Every page loads with HTTP 200 and no console errors." },
-      { id: "R2", text: "Every internal and external link resolves." },
-      { id: "R3", text: "Every page meets WCAG 2.1 AA." },
-      { id: "R4", text: "The resume PDF downloads." },
-      { id: "R5", text: "Unknown URLs return 404 with a way back." },
-    ],
-    plan: {
-      scope: ["All pages", "Navigation", "Links", "Accessibility", "Resume download"],
-      outOfScope: ["Content of linked repos", "Hosting uptime"],
-      levels: "E2E (Playwright) against the static export, axe-core for accessibility",
-      environment: "Chromium, Firefox, WebKit, Pixel 7 · GitHub Actions",
-      entry: "Lint, typecheck and static build pass.",
-      exit: "All tests pass; only then deploy to GitHub Pages.",
-    },
-    scenarios: [
-      { id: "TS-01", title: "Navigate the site", covers: ["R1", "R5"] },
-      { id: "TS-02", title: "Follow every link", covers: ["R2", "R4"] },
-      { id: "TS-03", title: "Accessibility scan", covers: ["R3"] },
-    ],
-    cases: [
-      {
-        id: "TC-01", scenario: "TS-01", type: "Positive",
-        title: "Each nav link opens its page",
-        precondition: "On the home page",
-        steps: ["Click each link in the main navigation"],
-        expected: "URL and h1 match; link marked aria-current",
-        file: "tests/navigation.spec.ts",
-      },
-      {
-        id: "TC-02", scenario: "TS-02", type: "Positive",
-        title: "No broken links",
-        precondition: "Static export served locally",
-        steps: ["Collect every href on every page", "Request each one"],
-        expected: "No status 400 or above",
-        file: "tests/links.spec.ts",
-      },
-      {
-        id: "TC-03", scenario: "TS-03", type: "Positive",
-        title: "WCAG 2.1 AA on every page",
-        precondition: "Page loaded",
-        steps: ["Run axe-core with wcag2a, wcag2aa, wcag21a, wcag21aa"],
-        expected: "No violations",
-        file: "tests/accessibility.spec.ts",
-      },
-      {
-        id: "TC-04", scenario: "TS-01", type: "Negative",
-        title: "Unknown URL",
-        precondition: "None",
-        data: "/does-not-exist",
-        steps: ["Open the URL", "Click Back to home"],
-        expected: "Status 404; “Page not found”; home page opens",
-        file: "tests/projects.spec.ts",
-      },
-    ],
-  },
 ];
 
 export const getQaDoc = (slug: string) => qaDocs.find((d) => d.slug === slug);

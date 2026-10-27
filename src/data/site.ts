@@ -7,21 +7,17 @@ export const site = {
   name: "Samin Zaman",
   role: "Software QA Engineer",
   intro:
-    "Nearly three years testing SaaS products: Playwright suites in TypeScript, API testing in Postman against OpenAPI specs, and release sign-off.",
+    "I'm a software QA engineer in Dhaka. For nearly three years I tested SaaS products for a remote US team: I wrote the Playwright suites, did the API testing in Postman, and signed off releases.",
   location: "Dhaka, Bangladesh",
   email: "saminzaman7@gmail.com",
   github: "https://github.com/Samin-Zaman1",
   resumePdf: "/resume/Samin_Zaman_Resume.pdf",
-  // shown under the hero intro
-  core: ["Postman", "Playwright", "TypeScript", "REST APIs", "Swagger/OpenAPI", "GitHub Actions", "Jira"],
 };
 
-// Figures from the CV and the project repos
-export const highlights = [
-  { value: "~3 yrs", label: "testing SaaS products" },
-  { value: "25+", label: "sprints of API testing in Postman" },
-  { value: "3", label: "SaaS products signed off for release" },
-  { value: "~300", label: "automated tests in Pharmacy POS" },
+// "About me" on the home page, in my own words
+export const about = [
+  "At Sense n Respond I was the one who signed off releases. That meant reading the acceptance criteria before the code was finished, running regression and UAT before each release, and writing Jira defects a developer could reproduce without having to ask me anything.",
+  "Outside work I test apps I've built or found. When I find a bug I keep it as a test marked expected-to-fail, so the suite tells me when it's fixed instead of the bug being forgotten. When my own job search got noisy, I treated that as a testing problem too and built SQA Job Alert.",
 ];
 
 // `heading` is the page's <h1>; tests/navigation.spec.ts checks it after each click

@@ -11,13 +11,13 @@ export type Project = {
 
 const gh = (repo: string) => `https://github.com/Samin-Zaman1/${repo}`;
 
-// One line each, about the testing. The repos carry the detail.
+// Lead with what the testing found; the repos carry the detail.
 export const projects: Project[] = [
   {
     slug: "saucedemo-qa-suite",
     title: "SauceDemo QA Suite",
     kind: "Personal",
-    summary: "38 UI and API tests with page objects and fixtures. 11 defects logged as expected-failure tests.",
+    summary: "Found 11 defects, including an unrounded total ($99.94999999999999), a checkout that can never finish and prices that change on every sort. Each is kept as an expected-failure test, so CI flags the fix. 38 UI and API tests.",
     tools: ["Playwright", "TypeScript"],
     repoUrl: gh("saucedemo-qa-suite"),
     reportUrl: "https://samin-zaman1.github.io/saucedemo-qa-suite/",
@@ -27,7 +27,7 @@ export const projects: Project[] = [
     slug: "bangla-medical-hall",
     title: "Pharmacy POS",
     kind: "Personal",
-    summary: "~300 tests across unit, component, database and E2E layers. Smoke tests after deploy, rollback on failure.",
+    summary: "Testing my own pharmacy app turned up a table the public key could read, password hashes included, and a reports page staff could open by typing the URL. Both fixed. ~300 tests from unit to E2E, with smoke tests and rollback after each deploy.",
     tools: ["Playwright", "Vitest", "PGlite"],
     repoUrl: gh("bangla-medical-hall"),
     featured: true,
@@ -44,7 +44,7 @@ export const projects: Project[] = [
     slug: "learners-hub",
     title: "Learners Hub",
     kind: "Personal",
-    summary: "LMS used as a test target. API unit tests in CI; strategy and defects in TESTING.md.",
+    summary: "An LMS I use as a test target. Found that an expired token returns 403 instead of 401, so the web client never sends the user back to log in. API unit tests in CI; strategy and open defects in TESTING.md.",
     tools: ["Jest", "NestJS", "GitHub Actions"],
     repoUrl: gh("learners-hub"),
     featured: true,
@@ -53,18 +53,10 @@ export const projects: Project[] = [
     slug: "sqa-job-alert",
     title: "SQA Job Alert",
     kind: "Personal",
-    summary: "Built for my own job search: alerts me to new SQA jobs on Bdjobs, LinkedIn, Jobgether and remote boards. Unit tests cover the title filter (~115 real titles), duplicate matching, the experience cap and salary ranking across currencies.",
+    summary: "Built for my own job search. Most \"QA\" jobs in Bangladesh are garment or pharma quality control, and most remote jobs aren't open to Bangladesh. It checks 10+ sources twice a day and keeps only what I can apply to; ~115 real job titles in unit tests keep the filter honest.",
     tools: ["Python", "unittest"],
     repoUrl: gh("sqa-job-alert"),
     featured: true,
-  },
-  {
-    slug: "portfolio-samin-zaman",
-    title: "This site",
-    kind: "Personal",
-    summary: "Navigation, link and WCAG 2.1 AA checks in four browsers before each deploy.",
-    tools: ["Playwright", "axe-core"],
-    repoUrl: gh("portfolio-samin-zaman"),
   },
   {
     slug: "all-things-api",
