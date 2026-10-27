@@ -53,7 +53,7 @@ export const projects: Project[] = [
     slug: "sqa-job-alert",
     title: "SQA Job Alert",
     kind: "Personal",
-    summary: "Built for my own job search: alerts me to new SQA jobs on Bdjobs, LinkedIn, Jobgether and remote boards. Title filter checked against ~115 real titles and look-alikes.",
+    summary: "Built for my own job search: alerts me to new SQA jobs on Bdjobs, LinkedIn, Jobgether and remote boards. Unit tests cover the title filter (~115 real titles), duplicate matching, the experience cap and salary ranking across currencies.",
     tools: ["Python", "unittest"],
     repoUrl: gh("sqa-job-alert"),
     featured: true,

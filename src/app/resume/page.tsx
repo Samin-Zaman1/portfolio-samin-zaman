@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Band, Button, Chip, Container, Section } from "@/components/ui";
-import { asset, education, experience, site, tools } from "@/data/site";
+import { activities, asset, education, experience, site, tools } from "@/data/site";
 
 export const metadata: Metadata = { title: "Resume" };
 
@@ -44,6 +44,18 @@ export default function ResumePage() {
             <p className="font-mono text-xs text-accent-strong">{education.period}</p>
           </div>
           <p className="text-sm text-muted">{education.school}</p>
+        </Section>
+
+        <Section id="activities-heading" title="Activities">
+          {activities.map((a) => (
+            <div key={a.role}>
+              <div className="flex flex-wrap items-baseline justify-between gap-x-4">
+                <p className="font-bold">{a.role}</p>
+                <p className="font-mono text-xs text-accent-strong">{a.period}</p>
+              </div>
+              <p className="text-sm text-muted">{a.org}</p>
+            </div>
+          ))}
         </Section>
 
         <Section id="tools-heading" title="Tools">

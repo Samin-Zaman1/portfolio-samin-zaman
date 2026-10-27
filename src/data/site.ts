@@ -26,12 +26,22 @@ export const experience = [
     role: "Quality Assurance Engineer",
     company: "Sense n Respond LLC",
     where: "Remote, USA",
-    period: "2023 – 2026",
+    period: "Jun 2023 – Mar 2026",
     points: [
-      "Built two Playwright suites from scratch and ran them in GitHub Actions.",
-      "Signed off releases for three SaaS products.",
-      "Tested REST APIs against OpenAPI specs across 25+ sprints.",
+      "Built two Playwright suites from scratch in TypeScript with page objects and ran them in GitHub Actions.",
+      "Signed off releases for three SaaS products: acceptance criteria, pre-release regression and UAT.",
+      "Tested REST APIs in Postman against OpenAPI specs across 25+ sprints, plus load testing.",
+      "Tested a bug-reporting browser extension: screen recordings, console and network capture, and Time Travel replay.",
+      "Logged defects in Jira with reproduction steps and evidence; kept test docs and checklists for 15+ modules.",
     ],
+  },
+];
+
+export const activities = [
+  {
+    role: "Event & Content Writing Coordinator",
+    org: "IEEE NSU Student Branch & WIE Affinity Group",
+    period: "2018 – 2022",
   },
 ];
 
@@ -43,5 +53,5 @@ export const education = {
 
 export const tools = [
   "Playwright", "TypeScript", "Postman", "Swagger/OpenAPI", "Vitest",
-  "GitHub Actions", "Jira", "SQL", "Chrome DevTools",
+  "Git/GitHub", "GitHub Actions", "Jira", "SQL", "Chrome DevTools",
 ];
