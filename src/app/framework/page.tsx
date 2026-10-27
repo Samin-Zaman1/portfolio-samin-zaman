@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Band, Chip, Container, Section, linkStyle } from "@/components/ui";
 
 export const metadata: Metadata = { title: "My Testing Framework" };
@@ -31,6 +32,18 @@ const snippet = `test.fail(
       .toHaveText(/^Item total: \\$\\d+\\.\\d{2}$/);
   },
 );`;
+
+const postmanSnippet = `// Tests tab of "Create API"
+pm.test("creates the API and returns its id", () => {
+  pm.response.to.have.status(201);
+  const body = pm.response.json();
+  pm.expect(body.name).to.eql(pm.environment.get("apiName"));
+  pm.collectionVariables.set("apiId", body.id); // used by the next request
+});
+
+pm.test("responds within 800 ms", () => {
+  pm.expect(pm.response.responseTime).to.be.below(800);
+});`;
 
 export default function FrameworkPage() {
   return (
@@ -73,6 +86,20 @@ export default function FrameworkPage() {
         <p className="mt-3 text-sm text-muted">
           The test asserts the correct total and is marked <code className="font-mono">test.fail()</code>. CI stays green
           while the defect is open and fails once it&apos;s fixed, so the test gets promoted to a regular regression check.
+        </p>
+      </Section>
+
+      <Section id="postman-heading" title="API testing in Postman">
+        <p className="leading-7">
+          At work, every API check ran in Postman. Each request carries its own assertions, and each one hands the
+          values the next request needs through variables, so a whole collection runs as one flow in the Collection Runner.
+        </p>
+        <pre tabIndex={0} aria-label="Example Postman test script" className="mt-5 overflow-x-auto rounded-lg bg-foreground p-5 font-mono text-[0.8rem] leading-6 text-mint-strong">
+          <code>{postmanSnippet}</code>
+        </pre>
+        <p className="mt-3 text-sm text-muted">
+          The full list of what I used is on the{" "}
+          <Link href="/resume" className={linkStyle}>resume page</Link>.
         </p>
       </Section>
     </Container>

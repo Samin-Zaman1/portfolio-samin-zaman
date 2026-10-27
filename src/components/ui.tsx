@@ -5,16 +5,16 @@ import { qaDocs } from "@/data/qa";
 
 const hasQaDoc = (slug: string) => qaDocs.some((d) => d.slug === slug);
 
-export const width = "mx-auto w-full max-w-3xl px-5";
+export const width = "mx-auto w-full max-w-5xl px-5";
 
 export function Container({ children }: { children: ReactNode }) {
   return <div className={`${width} py-12 sm:py-16`}>{children}</div>;
 }
 
-// Tinted band for the top of a page
+// Header band for the top of a page: neutral, with a faint dot grid
 export function Band({ children }: { children: ReactNode }) {
   return (
-    <div className="border-b border-border bg-mint">
+    <div className="bg-grid border-b border-border bg-surface">
       <div className={`${width} py-12 sm:py-16`}>{children}</div>
     </div>
   );
@@ -33,11 +33,11 @@ export function Section({
 }) {
   return (
     <section aria-labelledby={id} className={className}>
-      <h2 id={id} className="flex items-center gap-3 text-lg font-bold tracking-tight text-accent-strong">
-        <span aria-hidden className="h-4 w-1 rounded-full bg-accent" />
+      <h2 id={id} className="flex items-center gap-3 text-xl font-bold tracking-tight">
+        <span aria-hidden className="h-5 w-1 rounded-full bg-accent" />
         {title}
       </h2>
-      <div className="mt-5">{children}</div>
+      <div className="mt-6">{children}</div>
     </section>
   );
 }
@@ -46,7 +46,7 @@ export const linkStyle = "underline decoration-mint-strong decoration-2 underlin
 
 export function Chip({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-block rounded-md bg-mint px-2 py-0.5 font-mono text-xs text-accent-strong">{children}</span>
+    <span className="inline-block rounded-md border border-border bg-surface px-2 py-0.5 font-mono text-xs text-muted">{children}</span>
   );
 }
 
@@ -66,9 +66,12 @@ export function Button({ variant = "primary", className = "", ...props }: { vari
 
 export function ProjectList({ items }: { items: Project[] }) {
   return (
-    <ul className="divide-y divide-border border-y border-border">
+    <ul className="grid gap-4 sm:grid-cols-2">
       {items.map((p) => (
-        <li key={p.slug} className="py-5">
+        <li
+          key={p.slug}
+          className="flex flex-col rounded-xl border border-border bg-white p-6 transition hover:border-accent/40 hover:shadow-[0_6px_24px_-12px_rgb(15_34_25/0.25)]"
+        >
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
             <h3 className="font-bold">
               {hasQaDoc(p.slug) ? (
@@ -85,8 +88,8 @@ export function ProjectList({ items }: { items: Project[] }) {
               </a>
             )}
           </div>
-          <p className="mt-1.5 text-[0.95rem] leading-7 text-muted">{p.summary}</p>
-          <ul className="mt-3 flex flex-wrap gap-1.5" aria-label={`${p.title} tools`}>
+          <p className="mt-2 text-[0.95rem] leading-7 text-muted">{p.summary}</p>
+          <ul className="mt-auto flex flex-wrap gap-1.5 pt-4" aria-label={`${p.title} tools`}>
             {p.tools.map((t) => (
               <li key={t}>
                 <Chip>{t}</Chip>

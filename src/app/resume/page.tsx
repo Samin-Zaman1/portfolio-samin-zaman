@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Band, Button, Chip, Container, Section } from "@/components/ui";
-import { activities, asset, education, experience, site, tools } from "@/data/site";
+import { activities, asset, education, experience, postman, site, tools } from "@/data/site";
 
 export const metadata: Metadata = { title: "Resume" };
 
@@ -36,6 +36,14 @@ export default function ResumePage() {
               </ul>
             </div>
           ))}
+        </Section>
+
+        <Section id="postman-heading" title="API testing in Postman">
+          <ul className="list-disc space-y-1.5 pl-5 leading-7 marker:text-accent">
+            {postman.map((p) => (
+              <li key={p}>{p}</li>
+            ))}
+          </ul>
         </Section>
 
         <Section id="education-heading" title="Education">

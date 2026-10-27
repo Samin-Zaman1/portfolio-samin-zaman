@@ -1,9 +1,10 @@
+import { width } from "@/components/ui";
 import { site } from "@/data/site";
 
 export default function Footer() {
   return (
-    <footer className="mt-8 border-t border-border bg-mint">
-      <div className="mx-auto flex w-full max-w-3xl flex-wrap justify-between gap-3 px-5 py-6 text-sm text-muted">
+    <footer className="mt-8 border-t border-border">
+      <div className={`${width} flex flex-wrap justify-between gap-3 py-6 text-sm text-muted`}>
         <p>
           <span className="font-semibold text-foreground">{site.name}</span> · {site.location}
         </p>

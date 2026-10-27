@@ -70,7 +70,7 @@ export const projects: Project[] = [
     slug: "all-things-api",
     title: "All Things API",
     kind: "Professional",
-    summary: "API management platform. REST testing against OpenAPI specs, load testing, release sign-off.",
+    summary: "API management platform. All API testing in Postman: scripted collections checked against OpenAPI specs, load testing, release sign-off.",
     tools: ["Postman", "Swagger/OpenAPI", "Jira"],
   },
   {

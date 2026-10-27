@@ -10,6 +10,8 @@
   --accent-strong: #116632;
   --mint: #ecf8f0;
   --mint-strong: #d3f0dd;
+  --surface: #f6f8f7;
+  --grid: #dde3e0;
   --danger: #b42318;
   --danger-soft: #fdecea;
 }
@@ -23,6 +25,7 @@
   --color-accent-strong: var(--accent-strong);
   --color-mint: var(--mint);
   --color-mint-strong: var(--mint-strong);
+  --color-surface: var(--surface);
   --color-danger: var(--danger);
   --color-danger-soft: var(--danger-soft);
   --font-sans: var(--font-jakarta);
@@ -32,6 +35,12 @@
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+/* Faint dot grid behind page headers */
+.bg-grid {
+  background-image: radial-gradient(var(--grid) 1px, transparent 1px);
+  background-size: 22px 22px;
 }
 
 ::selection {

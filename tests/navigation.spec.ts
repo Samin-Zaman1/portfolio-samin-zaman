@@ -18,10 +18,9 @@ test.describe("primary navigation", () => {
     });
   }
 
-  test("site name links back home", async ({ page }) => {
-    await page.goto("/projects");
-    await page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Samin Zaman" }).click();
-    await expect(page).toHaveURL("/");
+  test("Home is the only link marked current on the home page", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.getByRole("navigation", { name: "Main" }).locator("[aria-current=page]")).toHaveText(["Home"]);
   });
 });
 
