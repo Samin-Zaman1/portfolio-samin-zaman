@@ -17,7 +17,7 @@ export default function ProjectsPage() {
         <Section id="personal-heading" title="On GitHub">
           <ProjectList items={projects.filter((p) => p.kind === "Personal")} />
         </Section>
-        <Section id="professional-heading" title="At Sense n Respond">
+        <Section id="professional-heading" title="At work">
           <ProjectList items={projects.filter((p) => p.kind === "Professional")} />
         </Section>
       </Container>

@@ -21,14 +21,12 @@ export default function ResumePage() {
       <Container>
         <Section id="experience-heading" title="Experience">
           {experience.map((job) => (
-            <div key={job.company}>
+            <div key={job.period}>
               <div className="flex flex-wrap items-baseline justify-between gap-x-4">
                 <h3 className="font-bold">{job.role}</h3>
                 <p className="font-mono text-xs text-accent-strong">{job.period}</p>
               </div>
-              <p className="text-sm text-muted">
-                {job.company} · {job.where}
-              </p>
+              <p className="text-sm text-muted">{job.where}</p>
               <ul className="mt-4 list-disc space-y-1.5 pl-5 leading-7 marker:text-accent">
                 {job.points.map((p) => (
                   <li key={p}>{p}</li>

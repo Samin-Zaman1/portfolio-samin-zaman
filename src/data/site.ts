@@ -7,7 +7,7 @@ export const site = {
   name: "Samin Zaman",
   role: "Software QA Engineer",
   intro:
-    "I'm a software QA engineer in Dhaka. For nearly three years I tested SaaS products for a remote US team: I wrote the Playwright suites, did the API testing in Postman, and signed off releases.",
+    "I'm a software QA engineer in Dhaka. I test SaaS products: I write Playwright suites, do the API testing in Postman, and sign off releases.",
   location: "Dhaka, Bangladesh",
   email: "saminzaman7@gmail.com",
   github: "https://github.com/Samin-Zaman1",
@@ -16,7 +16,7 @@ export const site = {
 
 // "About me" on the home page, in my own words
 export const about = [
-  "At Sense n Respond I was the one who signed off releases. That meant reading the acceptance criteria before the code was finished, running regression and UAT before each release, and writing Jira defects a developer could reproduce without having to ask me anything.",
+  "In my last role I was the one who signed off releases. That meant reading the acceptance criteria before the code was finished, running regression and UAT before each release, and writing Jira defects a developer could reproduce without having to ask me anything.",
   "Outside work I test apps I've built or found. When I find a bug I keep it as a test marked expected-to-fail, so the suite tells me when it's fixed instead of the bug being forgotten. When my own job search got noisy, I treated that as a testing problem too and built SQA Job Alert.",
 ];
 
@@ -31,8 +31,8 @@ export const navLinks = [
 export const experience = [
   {
     role: "Quality Assurance Engineer",
-    company: "Sense n Respond LLC",
-    where: "Remote, USA",
+    // No company name on the site
+    where: "US SaaS company · Remote",
     period: "Jun 2023 – Mar 2026",
     points: [
       "Built two Playwright suites from scratch in TypeScript with page objects and ran them in GitHub Actions.",
@@ -44,7 +44,7 @@ export const experience = [
   },
 ];
 
-// What I used day to day for API testing at Sense n Respond
+// What I used day to day for API testing at work
 export const postman = [
   "Collections organised by service, with environments and variables for dev, staging and production.",
   "Pre-request scripts that build test data and fetch auth tokens.",

@@ -45,9 +45,7 @@ export default function Home() {
         <div className="mt-16 grid gap-10 sm:grid-cols-2">
           <Section id="experience-heading" title="Experience" className="">
             <p className="font-bold">{job.role}</p>
-            <p className="text-sm text-muted">
-              {job.company} · {job.where}
-            </p>
+            <p className="text-sm text-muted">{job.where}</p>
             <p className="mt-1 font-mono text-xs text-muted">{job.period}</p>
           </Section>
           <Section id="education-heading" title="Education" className="">
