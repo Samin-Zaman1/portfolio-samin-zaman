@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button, Container, ProjectList, Section, linkStyle, width } from "@/components/ui";
 import { projects } from "@/data/projects";
-import { about, asset, education, experience, site } from "@/data/site";
+import { about, asset, education, experience, hero, site } from "@/data/site";
 
 export default function Home() {
   const job = experience[0];
@@ -14,7 +14,12 @@ export default function Home() {
             {site.name}
           </h1>
           <p className="mt-2 text-lg font-semibold text-accent-strong">{site.role}</p>
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">{site.intro}</p>
+          <p className="mt-8 max-w-2xl text-2xl font-bold tracking-tight sm:text-3xl">{hero.title}</p>
+          <div className="mt-4 max-w-2xl space-y-3 text-lg leading-8 text-muted">
+            {hero.lines.map((line) => (
+              <p key={line}>{line}</p>
+            ))}
+          </div>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button href={`mailto:${site.email}`}>Email me</Button>
             <Button href={asset(site.resumePdf)} variant="outline">Resume (PDF)</Button>

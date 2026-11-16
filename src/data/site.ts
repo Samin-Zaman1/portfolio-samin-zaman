@@ -14,6 +14,15 @@ export const site = {
   resumePdf: "/resume/Samin_Zaman_Resume.pdf",
 };
 
+// Home page intro, in my own words
+export const hero = {
+  title: "Surviving in the AI era, as a tester.",
+  lines: [
+    "AI is changing how software gets built, and testing is changing with it. I'd rather keep up than get left behind.",
+    "My base: Playwright suites, API testing in Postman, and signing off releases. On top of that, I'm upskilling, learning how to test AI-built products and how to use AI in my own testing.",
+  ],
+};
+
 // "About me" on the home page, in my own words
 export const about = [
   "In my last role I was the one who signed off releases. That meant reading the acceptance criteria before the code was finished, running regression and UAT before each release, and writing Jira defects a developer could reproduce without having to ask me anything.",
