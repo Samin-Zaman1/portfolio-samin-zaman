@@ -79,6 +79,9 @@ export default async function ProjectQaPage({ params }: PageProps<"/projects/[sl
         {project.reportUrl && (
           <Button href={project.reportUrl} target="_blank" rel="noreferrer" variant="outline">Test report</Button>
         )}
+        {project.postmanUrl && (
+          <Button href={project.postmanUrl} target="_blank" rel="noreferrer" variant="outline">Postman collections</Button>
+        )}
       </div>
       <p className="mt-6 font-mono text-xs text-muted">
         {doc.requirements.length} requirements · {doc.scenarios.length} scenarios · {doc.cases.length} test cases

@@ -6,6 +6,7 @@ export type Project = {
   tools: string[];
   repoUrl?: string;
   reportUrl?: string;
+  postmanUrl?: string;
   featured?: boolean;
 };
 
@@ -44,9 +45,10 @@ export const projects: Project[] = [
     slug: "learners-hub",
     title: "Learners Hub",
     kind: "Personal",
-    summary: "An LMS I use as a test target. Found that an expired token returns 403 instead of 401, so the web client never sends the user back to log in. API unit tests in CI; strategy and open defects in TESTING.md.",
-    tools: ["Jest", "NestJS", "GitHub Actions"],
+    summary: "An LMS I use as a test target. Found that an expired token returns 403 instead of 401, so the web client never sends the user back to log in. API unit tests in CI, plus 131 requests across five Postman collections, one per role and area.",
+    tools: ["Jest", "Postman", "NestJS", "GitHub Actions"],
     repoUrl: gh("learners-hub"),
+    postmanUrl: "https://www.postman.com/samins-pm-coll/workspace/samin-s-pm-coll-workspace",
     featured: true,
   },
   {
