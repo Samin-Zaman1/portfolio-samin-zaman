@@ -4,6 +4,7 @@ import { expect, test, type Page } from "@playwright/test";
 test.use({ reducedMotion: "reduce" });
 
 const bug = (page: Page, id: number) => page.locator(`[data-bug="${id}"]`);
+const tag = (page: Page, id: number) => page.getByRole("button", { name: new RegExp(`^BUG-00${id}`) });
 const card = (page: Page) => page.locator(".report");
 const isTouch = () => test.info().project.name === "mobile-chrome";
 
@@ -43,9 +44,17 @@ test("clicking a bug files it and fixes the element", async ({ page }) => {
   await expect(page.locator("#cnt")).toHaveText("1/3");
   await expect(page.locator("#foot")).toHaveText("build #0047 · known issues: 2");
   await expect(page.locator("#toast")).toContainText("BUG-002 filed");
+  await expect(tag(page, 2)).toHaveCount(0);
 
   // Filing the same element again changes nothing
   await bug(page, 2).click();
+  await expect(page.locator("#cnt")).toHaveText("1/3");
+});
+
+test("clicking the red tag files the bug too", async ({ page }) => {
+  test.skip(isTouch(), "touch needs two taps, tested below");
+  await tag(page, 3).click();
+  await expect(bug(page, 3)).toHaveClass(/fixed/);
   await expect(page.locator("#cnt")).toHaveText("1/3");
 });
 
@@ -57,13 +66,18 @@ test("filing BUG-003 restores the Adapting list styles", async ({ page }) => {
 
 test("bugs can be found and filed with the keyboard", async ({ page }) => {
   test.skip(isTouch(), "no keyboard on touch screens");
-  await bug(page, 1).focus();
+  await tag(page, 1).focus();
   await expect(card(page)).toBeVisible();
+  await expect(card(page).locator("h4")).toHaveText("Headline overlaps the intro paragraph");
+
+  await page.keyboard.press("Escape");
+  await expect(card(page)).toBeHidden();
+
   await page.keyboard.press("Enter");
   await expect(bug(page, 1)).toHaveClass(/fixed/);
   await expect(card(page)).toBeHidden();
 
-  await bug(page, 2).focus();
+  await tag(page, 2).focus();
   await page.keyboard.press(" ");
   await expect(page.locator("#cnt")).toHaveText("2/3");
 });
@@ -78,17 +92,27 @@ test("filing all 3 turns the build green", async ({ page }) => {
 
 test("report card ID matches the bug tag", async ({ page }) => {
   test.skip(isTouch(), "no hover on touch screens");
-  // Known bug: the tag says BUG-001, the card header says BUG-1
-  test.fail();
   await bug(page, 1).hover();
-  await expect(card(page).locator(".key")).toHaveText("Portfolio / BUG-001", { timeout: 2_000 });
+  await expect(card(page).locator(".key")).toHaveText("Portfolio / BUG-001");
 });
 
-test("tapping a bug on a touch screen shows the report before filing it", async ({ page }) => {
+test("on a touch screen the first tap shows the report and the second files it", async ({ page }) => {
   test.skip(!isTouch(), "touch only");
-  // Known bug: the first tap files the bug, so phone visitors never see the report
-  test.fail();
   await bug(page, 2).tap();
-  await expect(card(page)).toBeVisible({ timeout: 2_000 });
-  await expect(bug(page, 2)).not.toHaveClass(/fixed/, { timeout: 2_000 });
+  await expect(card(page)).toBeVisible();
+  await expect(card(page)).toContainText("Tap again to file this bug");
+  await expect(bug(page, 2)).not.toHaveClass(/fixed/);
+
+  await bug(page, 2).tap();
+  await expect(bug(page, 2)).toHaveClass(/fixed/);
+  await expect(card(page)).toBeHidden();
+});
+
+test("on a touch screen tapping elsewhere closes the report without filing", async ({ page }) => {
+  test.skip(!isTouch(), "touch only");
+  await bug(page, 2).tap();
+  await expect(card(page)).toBeVisible();
+  await page.locator(".sec h2").first().tap();
+  await expect(card(page)).toBeHidden();
+  await expect(page.locator("#cnt")).toHaveText("0/3");
 });

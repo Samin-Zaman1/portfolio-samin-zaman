@@ -13,9 +13,6 @@ for (const width of widths) {
     test.use({ viewport: { width, height: 800 } });
 
     test("no horizontal scroll with the bugs open", async ({ page }) => {
-      // Known bug: the shifted bug elements push the page 12px wider than a 390px screen.
-      // Pixel 7 emulation passes because its layout viewport is 412px wide.
-      test.fail(width === 390 && test.info().project.name !== "mobile-chrome");
       await page.goto("/");
       expect(await overflow(page)).toBeLessThanOrEqual(0);
     });

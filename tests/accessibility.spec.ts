@@ -15,11 +15,6 @@ async function violations(page: Page) {
 
 test.use({ reducedMotion: "reduce" });
 
-// Known bug in both states: role="button" is set on the headline span, the Work article
-// and the Adapting <ol>, and stays after the bug is fixed. axe reports
-// label-content-name-mismatch, and the <li>s no longer belong to a list.
-test.beforeEach(() => test.fail());
-
 test("WCAG 2.1 AA with the bugs open", async ({ page }) => {
   await page.goto("/");
   expect(await violations(page)).toEqual([]);
