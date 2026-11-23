@@ -13,6 +13,8 @@
   --surface: #f6f8f7;
   --danger: #b42318;
   --danger-soft: #fdecea;
+  --grid: #e9f2ec;
+  --grid-strong: #cde4d5;
 }
 
 @theme inline {
@@ -34,6 +36,41 @@
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+/* Hairline grid behind page headers, fading out toward the edges.
+   Fine lines every 32px, slightly stronger lines every 128px (they line up with the page rails). */
+.grid-backdrop {
+  position: relative;
+  isolation: isolate;
+}
+
+.grid-backdrop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--grid-strong) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-strong) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 128px 128px, 128px 128px, 32px 32px, 32px 32px;
+  background-position: calc(50% + 64px) 0; /* puts a line on the page centre, so 128px lines hit the rails */
+  mask-image: radial-gradient(ellipse 75% 100% at 50% 0%, #000 35%, transparent 100%);
+}
+
+/* Thin vertical rails at the edges of the 64rem content column, full page height */
+@media (min-width: 72rem) {
+  body {
+    background-image:
+      linear-gradient(var(--grid-strong), var(--grid-strong)),
+      linear-gradient(var(--grid-strong), var(--grid-strong));
+    background-size: 1px 100%;
+    background-repeat: no-repeat;
+    background-position: calc(50% - 32rem) 0, calc(50% + 32rem) 0;
+  }
 }
 
 ::selection {

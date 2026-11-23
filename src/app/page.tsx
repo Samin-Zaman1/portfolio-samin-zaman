@@ -8,8 +8,8 @@ export default function Home() {
 
   return (
     <>
-      <section aria-labelledby="hero-heading" className="border-b border-border">
-        <div className={`${width} py-14 sm:py-20`}>
+      <section aria-labelledby="hero-heading" className="grid-backdrop border-b border-border">
+        <div className={`${width} py-16 sm:py-24`}>
           <h1 id="hero-heading" className="text-4xl font-extrabold tracking-tight sm:text-5xl">
             {site.name}
           </h1>

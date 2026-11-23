@@ -14,7 +14,7 @@ export function Container({ children }: { children: ReactNode }) {
 // Header band for the top of a page
 export function Band({ children }: { children: ReactNode }) {
   return (
-    <div className="border-b border-border">
+    <div className="grid-backdrop border-b border-border">
       <div className={`${width} py-12 sm:py-16`}>{children}</div>
     </div>
   );
