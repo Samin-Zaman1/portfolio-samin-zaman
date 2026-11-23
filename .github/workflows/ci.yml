@@ -20,12 +20,6 @@ jobs:
           node-version: lts/*
           cache: npm
       - run: npm ci
-      - name: Lint
-        run: npm run lint
-      - name: Type check
-        run: npm run typecheck
-      - name: Build static export
-        run: npm run build
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
       - name: Playwright tests
@@ -53,20 +47,16 @@ jobs:
       cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-          cache: npm
-      - id: pages
-        uses: actions/configure-pages@v5
-      - run: npm ci
-      - name: Build for GitHub Pages
-        run: npm run build
-        env:
-          NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
-      - run: touch out/.nojekyll
+      - uses: actions/configure-pages@v5
+      # Publish only the site files, not the whole repo
+      - name: Collect site files
+        run: |
+          mkdir _site
+          cp index.html _site/
+          cp -r resume _site/
+          touch _site/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: out
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v4
