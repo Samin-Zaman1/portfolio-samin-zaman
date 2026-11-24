@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Samin Zaman SQA Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* White page, hairline grid behind the hero, wide editorial grid with section titles on the left.
+   The build stays "unstable" until the 3 deliberate defects are filed. */
+:root{
+  --paper:#FFFFFF;
+  --soft:#F6F6F4;
+  --ink:#111111;
+  --mute:#6A6A66;
+  --line:#E2E2DE;
+  --grid:#EDEDE9;
+  --hl:#E03A24;  /* large highlight and lines only */
+  --red:#CC3218; /* small red text and tags: 5.2:1 on white */
+  --green:#1E7A4F;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65}
+/* The shifted bug elements must never cause sideways scrolling. clip keeps the sticky titles working. */
+main{overflow-x:clip}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.wrap{position:relative;max-width:1120px;margin:0 auto;padding:0 32px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+.label{font:500 12px var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--mute)}
+@media(max-width:600px){.wrap{padding:0 20px}}
+
+/* bar */
+.bar{position:sticky;top:0;z-index:10;background:var(--ink);color:#ECECEA}
+.bar::after{content:"";display:block;height:3px;background:var(--hl);transition:background .5s}
+body.stable .bar::after{background:var(--green)}
+.bar :focus-visible,.contact :focus-visible{outline-color:var(--hl)}
+.bar .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:6px 28px;padding-top:12px;padding-bottom:12px;font:500 12px var(--mono)}
+.bar .brand{font-weight:700;font-size:13px}
+.bar nav{display:flex;gap:26px;margin-left:auto}
+.bar nav a{text-decoration:none;color:#ECECEA}
+.bar nav a:hover{text-decoration:underline;text-underline-offset:4px}
+.build{color:#FFB4A9}
+body.stable .build{color:#8FE3C1}
+@media(max-width:700px){.bar nav{margin-left:0;width:100%;gap:20px}}
+
+/* deliberate defects */
+[data-bug]:not(.fixed){position:relative;outline:2px dashed var(--red);outline-offset:5px;cursor:crosshair}
+.bugtag{position:absolute;z-index:4;margin:0;border:0;border-radius:0;padding:3px 7px;font:700 10px var(--mono);letter-spacing:.04em;background:var(--red);color:#fff;white-space:nowrap;cursor:pointer}
+.bugtag:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+h1 span[data-bug]{transition:transform .5s cubic-bezier(.2,1.4,.4,1)}
+h1 span[data-bug]:not(.fixed){transform:translate(42px,48px) rotate(-2deg);z-index:3}
+.work[data-bug]{transition:transform .5s cubic-bezier(.2,1.4,.4,1)}
+.work[data-bug]:not(.fixed){transform:translate(30px,-16px) rotate(.8deg)}
+@media(max-width:600px){
+  h1 span[data-bug]:not(.fixed){transform:translate(16px,34px) rotate(-2deg)}
+  .work[data-bug]:not(.fixed){transform:translate(12px,-14px) rotate(.6deg)}
+}
+.steps.broken{display:block;list-style:decimal;padding-left:26px;font-family:"Times New Roman",Times,serif;font-size:16px;line-height:1.3;color:#000}
+.steps.broken li{display:list-item;padding:0;border:0;margin:0 0 8px}
+.steps.broken li>*{display:inline;font:inherit;color:inherit;padding:0}
+.steps.broken li>span:last-child{margin-left:6px}
+
+/* hero */
+.hero{position:relative;isolation:isolate;padding:112px 0 72px}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(to right,var(--grid) 1px,transparent 1px),linear-gradient(to bottom,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px;background-position:center top;
+  -webkit-mask-image:radial-gradient(ellipse 80% 100% at 50% 0%,#000 30%,transparent 100%);
+  mask-image:radial-gradient(ellipse 80% 100% at 50% 0%,#000 30%,transparent 100%)}
+.tag{margin:0 0 30px}
+h1{font-weight:800;line-height:.98;letter-spacing:-.035em;font-size:clamp(44px,8vw,100px)}
+h1 span{display:inline-block;color:#fff;background:var(--hl);padding:0 .1em;margin-top:.06em}
+.lede{max-width:54ch;margin:36px 0;font-size:clamp(18px,2vw,22px);line-height:1.55}
+.btn{display:inline-block;font:600 15px var(--body);text-decoration:none;padding:15px 28px;border:2px solid var(--ink);background:var(--ink);color:#fff;border-radius:4px;transition:background .15s,color .15s}
+.btn:hover{background:#fff;color:var(--ink)}
+.note{font-size:14px;color:var(--mute);margin:22px 0 0}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:64px 0 0;border-top:1px solid var(--ink)}
+.facts div{padding:16px 20px 0 0}
+.facts div+div{padding-left:20px;border-left:1px solid var(--line)}
+.facts dt{margin-bottom:4px}
+.facts dd{margin:0;font-size:15px;font-weight:500}
+@media(max-width:700px){.facts{grid-template-columns:1fr}.facts div,.facts div+div{padding:12px 0;border-left:0;border-bottom:1px solid var(--line)}}
+
+/* sections */
+.sec{padding:96px 0;border-top:2px solid var(--ink)}
+.split{display:grid;grid-template-columns:300px minmax(0,1fr);gap:56px}
+.side{position:sticky;top:100px;align-self:start}
+.main{position:relative}
+@media(max-width:900px){.split{grid-template-columns:1fr;gap:28px}.side{position:static}.sec{padding:72px 0}}
+.sec h2{font-size:clamp(30px,3.4vw,42px);font-weight:800;line-height:1.05;letter-spacing:-.02em}
+.sec h2 small{display:block;margin-bottom:14px}
+.intro{margin:16px 0 0;color:var(--mute);font-size:16px;line-height:1.6}
+
+/* adapting */
+.steps{list-style:none;margin:0;padding:0}
+.steps li{display:grid;grid-template-columns:44px 190px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid var(--line)}
+.steps li:first-child{border-top:1px solid var(--line)}
+.steps b{font-weight:600;font-size:18px}
+.steps span:first-child{color:var(--mute);font:500 12px var(--mono);padding-top:5px}
+.steps span:last-child{color:var(--mute);font-size:16px}
+@media(max-width:700px){.steps li{grid-template-columns:36px 1fr}.steps li span:last-child{grid-column:2}}
+
+/* tickets */
+.tlist{border:1px solid var(--line);border-radius:4px;background:#fff}
+.thead,.trow{display:grid;grid-template-columns:70px 1fr auto 18px;gap:16px;align-items:center;padding-left:18px;padding-right:18px}
+.thead{padding-top:10px;padding-bottom:10px;background:var(--soft);border-bottom:1px solid var(--line);border-radius:4px 4px 0 0}
+.ticket+.ticket{border-top:1px solid var(--line)}
+.trow{all:unset;box-sizing:border-box;width:100%;display:grid;grid-template-columns:70px 1fr auto 18px;gap:16px;align-items:center;padding:18px;cursor:pointer;font-family:var(--body)}
+.trow:hover{background:var(--soft)}
+.trow:hover .ttl{text-decoration:underline;text-underline-offset:4px}
+.trow:focus-visible{outline:3px solid var(--ink);outline-offset:-3px}
+.tid{font:500 12px var(--mono);color:var(--mute)}
+.ttl{font-weight:600;font-size:18px}
+.sev{font:700 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--red)}
+.chev{font-size:20px;transition:transform .2s}
+.trow[aria-expanded=true] .chev{transform:rotate(90deg)}
+.tbody{padding:0 18px 24px 104px;font-size:15.5px}
+.tbody[hidden]{display:none}
+.tbody dl{margin:0;display:grid;grid-template-columns:90px 1fr;gap:10px 16px}
+.tbody dt{color:var(--mute);font:500 11px var(--mono);letter-spacing:.07em;text-transform:uppercase;padding-top:4px}
+.tbody dd{margin:0}
+.tbody .exp{color:var(--green)}.tbody .act{color:var(--red)}
+.tfoot{margin:0;padding:14px 18px;border-top:1px solid var(--line);background:var(--soft);border-radius:0 0 4px 4px;font-size:15px;color:var(--mute)}
+.tfoot b{margin-right:8px;font:700 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--green)}
+@media(max-width:700px){.thead{display:none}.trow{grid-template-columns:1fr auto 18px}.tid{display:none}.tbody{padding-left:18px}.tbody dl{grid-template-columns:1fr;gap:4px}.tbody dd{margin-bottom:10px}}
+
+/* work */
+.work{padding:30px 0;border-bottom:1px solid var(--line)}
+.work:first-child{padding-top:0}
+.work h3{font-size:clamp(24px,2.6vw,30px);font-weight:800;letter-spacing:-.02em;line-height:1.15}
+.work .kind{margin:6px 0 14px}
+.work p{margin:0 0 12px;font-size:16.5px;max-width:64ch}
+.catch{margin:18px 0 6px;padding:2px 0 2px 18px;border-left:2px solid var(--ink)}
+.catch .label{display:block;margin-bottom:6px}
+.catch p{margin:0}
+
+/* projects: same rhythm as work, plus a row of links */
+.proj{padding:28px 0;border-bottom:1px solid var(--line)}
+.proj:first-child{padding-top:0}
+.proj h3{font-size:clamp(22px,2.2vw,26px);font-weight:800;letter-spacing:-.02em;line-height:1.15}
+.proj .kind{margin:6px 0 12px}
+.proj p{margin:0 0 12px;font-size:16.5px;max-width:64ch}
+.plinks{display:flex;flex-wrap:wrap;gap:6px 22px;font:500 13px var(--mono)}
+.plinks a{text-underline-offset:4px;text-decoration-color:var(--line)}
+.plinks a:hover{text-decoration-color:var(--ink)}
+
+/* contact */
+.contact{background:var(--ink);color:#fff;border-top-color:var(--hl)}
+body.stable .contact{border-top-color:var(--green)}
+.contact h2{font-size:clamp(38px,6.4vw,80px);letter-spacing:-.03em;line-height:1;max-width:14ch}
+.contact .intro{color:#CDCDCA;font-size:19px;margin:24px 0 36px;max-width:46ch}
+.links{display:flex;flex-wrap:wrap;gap:14px}
+.links a,.todo{font:600 15px var(--body);padding:14px 26px;border:2px solid #fff;text-decoration:none;color:#fff;border-radius:4px}
+.links a:hover{background:#fff;color:var(--ink)}
+.todo{border-style:dashed;color:#ECECEA;border-color:#A3A3A0}
+footer{background:var(--ink);color:#A3A3A0;font:500 12px var(--mono);padding:0 0 32px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 24px;border-top:1px solid #333331;padding-top:22px}
+
+/* Jira-style report card */
+.report{position:fixed;z-index:60;width:min(400px,calc(100vw - 24px));background:#fff;color:#172B4D;border:1px solid #DFE1E6;border-radius:3px;box-shadow:0 8px 16px -4px rgba(9,30,66,.25),0 0 1px rgba(9,30,66,.31);font:13px/1.45 var(--body);pointer-events:none}
+.report[hidden]{display:none}
+.report .hd{display:flex;align-items:center;gap:8px;padding:12px 16px 0;font-size:12px;color:#5E6C84}
+.report .ic{width:16px;height:16px;border-radius:3px;background:var(--red);display:grid;place-items:center}
+.report .ic svg{width:11px;height:11px}
+.report .key{color:#5E6C84}
+.report .pri{margin-left:auto;display:flex;align-items:center;gap:4px;font-size:12px}
+.report .pri b{font-size:11px}
+.report .pri.High b{color:var(--red)}.report .pri.Medium b{color:#B65C02}.report .pri.Low b{color:#5E6C84}
+.report h4{margin:6px 16px 8px;font:600 17px/1.3 var(--body);color:#172B4D}
+.report .row{display:flex;align-items:center;gap:8px;margin:0 16px 12px}
+.report .loz{font:700 11px var(--body);letter-spacing:.02em;text-transform:uppercase;background:#DFE1E6;color:#42526E;padding:2px 6px;border-radius:3px}
+.report .lbl{font-size:12px;color:#42526E;background:#F4F5F7;padding:1px 6px;border-radius:3px}
+.report .fld{padding:0 16px;margin-bottom:10px}
+.report .fld h5{margin:0 0 4px;font:600 11px var(--body);letter-spacing:.04em;text-transform:uppercase;color:#6B778C}
+.report ol{margin:0;padding-left:18px}
+.report .panel{display:grid;grid-template-columns:20px 1fr;gap:6px;padding:8px 10px;border-radius:3px}
+.report .panel.ok{background:#E3FCEF}.report .panel.bad{background:#FFEBE6}
+.report .panel .pi{width:16px;height:16px;border-radius:50%;display:grid;place-items:center;margin-top:1px}
+.report .panel.ok .pi{background:#1E7A4F}.report .panel.bad .pi{background:var(--red)}
+.report .panel .pi svg{width:9px;height:9px}
+.report .det{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin:12px 0 0;padding:12px 16px;border-top:1px solid #DFE1E6;background:#FAFBFC}
+.report .det div span{display:block;font:600 11px var(--body);letter-spacing:.04em;text-transform:uppercase;color:#6B778C;margin-bottom:2px}
+.report .av{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--ink);color:#fff;font:700 9px var(--body);margin-right:6px;vertical-align:-4px}
+.report .ft{padding:7px 16px;border-top:1px solid #DFE1E6;font-size:12px;color:#6B778C}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;z-index:30;background:var(--ink);color:#fff;border-left:5px solid var(--red);padding:12px 18px;font-size:14px;max-width:calc(100vw - 32px);transition:transform .25s,opacity .25s;pointer-events:none}
+.toast.show{transform:translate(-50%,0);opacity:1}
+.toast b{color:#FFB4A9}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="brand">samin.qa</span>
+    <span class="build" id="build">build in progress · bugs found <span id="cnt">0/3</span></span>
+    <nav aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#projects">Projects</a>
+      <a href="#bugs">Bugs</a>
+      <a href="#adapting">Adapting</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <p class="tag label">SQA engineer · Dhaka, Bangladesh</p>
+    <h1>Trying to adapt<br><span data-bug="1" data-tag="BUG-001 · overlap">with AI.</span></h1>
+    <p class="lede">I'm Samin. Two and a half years as an SQA engineer at Sense n Respond, testing an API governance platform, a bug tracker, an HR platform and an email marketing platform.</p>
+    <a class="btn" href="#work">See my work</a>
+    <p class="note">Three things on this page are broken on purpose. Click the red tags to file a bug.</p>
+    <dl class="facts">
+      <div><dt class="label">Last role</dt><dd>SQA engineer, Sense n Respond, 2023 to 2026</dd></div>
+      <div><dt class="label">Tools</dt><dd>Playwright, Postman, Jira</dd></div>
+      <div><dt class="label">Status</dt><dd>Open to SQA roles</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="sec" id="work">
+  <div class="wrap">
+    <div class="split">
+    <div class="side">
+    <h2><small class="label">01 / Experience</small>Work</h2>
+    <p class="intro">Sense n Respond LLC, a startup where I worked across all four products. Team: 30+ engineers, 7 of them QA.</p>
+    </div>
+    <div class="main">
+    <article class="work">
+      <h3>Sniffer</h3>
+      <div class="kind label">Bug tracker and browser extension</div>
+      <p>Tested the extension, including Time Travel, which rewinds 30 seconds to reproduce a bug. Wrote the user guides.</p>
+      <div class="catch">
+        <span class="label">Favorite catch</span>
+        <p>Playback stuttered only between seconds 20 and 25, and only sometimes. I found it by repeating the test 30 to 40 times with the network tab open. Frames were loading as one batch instead of two segments.</p>
+      </div>
+    </article>
+    <article class="work" data-bug="2" data-tag="BUG-002 · misaligned">
+      <h3>All Things API</h3>
+      <div class="kind label">API testing and governance platform</div>
+      <p>API and load testing in Postman, Playwright automation, and the end-user guides and product documentation.</p>
+    </article>
+    <article class="work">
+      <h3>Associate 360 View and D2C</h3>
+      <div class="kind label">HR platform and email marketing platform</div>
+      <p>Manual testing and automation suites across multiple modules on both products.</p>
+    </article>
+    </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="projects">
+  <div class="wrap">
+    <div class="split">
+    <div class="side">
+    <h2><small class="label">02 / Personal</small>Projects</h2>
+    <p class="intro">Apps I built or picked as test targets. Each repo holds the tests and what they found.</p>
+    </div>
+    <div class="main">
+    <article class="proj">
+      <h3>SauceDemo QA Suite</h3>
+      <div class="kind label">Playwright · TypeScript</div>
+      <p>Found 11 defects, including an unrounded total ($99.94999999999999), a checkout that can never finish and prices that change on every sort. Each is kept as an expected-failure test, so CI flags the fix. 38 UI and API tests.</p>
+      <p class="plinks"><a href="https://github.com/Samin-Zaman1/saucedemo-qa-suite">Repo<span aria-hidden="true"> ↗</span></a><a href="https://samin-zaman1.github.io/saucedemo-qa-suite/">Test report<span aria-hidden="true"> ↗</span></a></p>
+    </article>
+    <article class="proj">
+      <h3>Pharmacy POS</h3>
+      <div class="kind label">Playwright · Vitest · PGlite</div>
+      <p>Testing my own pharmacy app turned up a table the public key could read, password hashes included, and a reports page staff could open by typing the URL. Both fixed. About 300 tests from unit to E2E, with smoke tests and rollback after each deploy.</p>
+      <p class="plinks"><a href="https://github.com/Samin-Zaman1/bangla-medical-hall">Repo<span aria-hidden="true"> ↗</span></a></p>
+    </article>
+    <article class="proj">
+      <h3>Learners Hub</h3>
+      <div class="kind label">Postman · Jest · NestJS · GitHub Actions</div>
+      <p>An LMS I use as a test target. Found that an expired token returns 403 instead of 401, so the web client never sends the user back to log in. API unit tests in CI, plus 131 requests across five Postman collections, one per role and area.</p>
+      <p class="plinks"><a href="https://github.com/Samin-Zaman1/learners-hub">Repo<span aria-hidden="true"> ↗</span></a><a href="https://www.postman.com/samins-pm-coll/workspace/samin-s-pm-coll-workspace">Postman collections<span aria-hidden="true"> ↗</span></a><a href="#bugs">Bug reports</a></p>
+    </article>
+    <article class="proj">
+      <h3>SQA Job Alert</h3>
+      <div class="kind label">Python · unittest</div>
+      <p>Built for my own job search. Most "QA" jobs in Bangladesh are garment or pharma quality control, and most remote jobs aren't open to Bangladesh. It checks 10+ sources twice a day and keeps only what I can apply to. About 115 real job titles in unit tests keep the filter honest.</p>
+      <p class="plinks"><a href="https://github.com/Samin-Zaman1/sqa-job-alert">Repo<span aria-hidden="true"> ↗</span></a></p>
+    </article>
+    <article class="proj">
+      <h3>Mini Library</h3>
+      <div class="kind label">Vitest · GitHub Actions</div>
+      <p>Practice target for layered testing. Unit tests in CI; database and E2E layers in progress.</p>
+      <p class="plinks"><a href="https://github.com/Samin-Zaman1/mini-library">Repo<span aria-hidden="true"> ↗</span></a></p>
+    </article>
+    </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="bugs">
+  <div class="wrap">
+    <div class="split">
+    <div class="side">
+    <h2><small class="label">03 / Evidence</small>Bug reports</h2>
+    <p class="intro">Findings from Learners Hub, my own practice project. I tested its local API with five Postman collections and logged 12 bugs: 3 high, 6 medium, 3 low. Three are shown.</p>
+    </div>
+    <div class="main">
+    <div class="tlist">
+      <div class="thead label" aria-hidden="true"><span>ID</span><span>Summary</span><span>Severity</span><span></span></div>
+      <div id="tickets"></div>
+      <p class="tfoot"><b>Passing</b>Missing token returns 401, wrong role returns 403, and Student B cannot read Student A's data.</p>
+    </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="adapting">
+  <div class="wrap">
+    <div class="split">
+      <div class="side">
+        <h2><small class="label">04 / Adapting</small>Adapting with AI</h2>
+        <p class="intro">What I'm doing about it.</p>
+      </div>
+      <div class="main">
+        <ol class="steps broken" data-bug="3" data-tag="BUG-003 · stylesheet missing">
+          <li><span>01</span><b>Automation</b><span>Learning Playwright with TypeScript, from locators and page objects through CI.</span></li>
+          <li><span>02</span><b>Credentials</b><span>IBM AI Product Management certificate. ISTQB CTFL v4.0 in preparation.</span></li>
+          <li><span>03</span><b>Own tooling</b><span>Designing a guided testing checklist and a code-versus-product gap check, starting on my own codebase.</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec contact" id="contact">
+  <div class="wrap">
+    <h2>Got software that needs breaking?</h2>
+    <p class="intro">Open to SQA roles. Send me the build, written by people or by AI, and I will send back reproducible tickets.</p>
+    <div class="links" id="links"></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Samin Zaman</span>
+    <span id="foot">build #0047 · known issues: 3</span>
+  </div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* Fill these in. Empty values show a dashed TODO on the page. */
+const CONFIG = {
+  email: "saminzaman7@gmail.com",
+  linkedin: "",
+  github: "https://github.com/Samin-Zaman1",
+  resume: "resume/Samin_Zaman_Resume.pdf"
+};
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+/* contact links */
+(function () {
+  const box = $("#links");
+  [["email", "Email me", v => "mailto:" + v], ["linkedin", "LinkedIn", v => v], ["github", "GitHub", v => v], ["resume", "Resume", v => v]].forEach(([k, label, f]) => {
+    if (CONFIG[k]) { const a = document.createElement("a"); a.href = f(CONFIG[k]); a.textContent = label; box.appendChild(a); }
+    else { const s = document.createElement("span"); s.className = "todo"; s.textContent = "TODO add " + k; box.appendChild(s); }
+  });
+})();
+
+/* tickets */
+const TICKETS = [
+  { n: "LH-002", t: "Error responses leak internals", sev: "High", steps: "Trigger any error: duplicate signup, invalid role, or a 403 on an admin endpoint.", exp: "Generic message. Details only in server logs.", act: "Body includes a stack trace, local file paths, the source line and, once, a password hash." },
+  { n: "LH-006", t: "GET /auth/me exposes passwordHash", sev: "High", steps: "Log in, then call GET /auth/me.", exp: "Only safe fields: id, email, role, name.", act: "Response includes passwordHash." },
+  { n: "LH-004", t: "Public signup accepts a client-supplied role", sev: "High", steps: "POST /auth/signup with role ADMIN and no authentication.", exp: "Role ignored or rejected. Public signups are always STUDENT.", act: "An ADMIN user was created. Admin access not confirmed: GET /admin/users returned 403 for that token." }
+];
+(function () {
+  const box = $("#tickets");
+  TICKETS.forEach((k, i) => {
+    const el = document.createElement("article"); el.className = "ticket";
+    const open = i === 0;
+    el.innerHTML = '<button class="trow" type="button" aria-expanded="' + open + '" aria-controls="tb' + i + '"><span class="tid">' + k.n + '</span><span class="ttl">' + k.t + '</span><span class="sev">' + k.sev + '</span><span class="chev" aria-hidden="true">›</span></button>' +
+      '<div class="tbody" id="tb' + i + '"' + (open ? "" : " hidden") + '><dl><dt>Steps</dt><dd>' + k.steps + '</dd><dt>Expected</dt><dd class="exp">' + k.exp + '</dd><dt>Actual</dt><dd class="act">' + k.act + '</dd></dl></div>';
+    box.appendChild(el);
+  });
+  box.addEventListener("click", e => {
+    const b = e.target.closest(".trow"); if (!b) return;
+    const body = document.getElementById(b.getAttribute("aria-controls")), o = b.getAttribute("aria-expanded") === "true";
+    b.setAttribute("aria-expanded", String(!o)); body.hidden = o;
+  });
+})();
+
+/* three deliberate defects */
+const BUGS = {
+  1: ["Low", "Headline overlaps the intro paragraph"],
+  2: ["Low", "Work entry misaligned and overlapping"],
+  3: ["Medium", "Stylesheet missing on the Adapting list"]
+};
+const R = {
+  1: { lbl: "layout", steps: "Open the home page at 1280px width. Look at the second line of the headline.", exp: "\"with AI.\" sits directly under the first line, with space above the intro.", act: "It is shifted down and right, tilted, and covers the first line of the intro paragraph." },
+  2: { lbl: "layout", steps: "Scroll to Work. Compare All Things API with the other two entries.", exp: "Same left edge and spacing as Sniffer and Associate 360 View.", act: "Shifted right and up, slightly rotated, and touching the Sniffer entry above." },
+  3: { lbl: "css", steps: "Scroll to Adapting.", exp: "A styled list with a title and description on each row.", act: "Unstyled serif text with default list numbers and no spacing or dividers." }
+};
+const TOTAL = 3, found = new Set(); let timer;
+const pad = id => "BUG-" + String(id).padStart(3, "0");
+
+/* Each defect gets a real button (the red tag), so keyboard and screen reader users can file it.
+   The tag sits outside the heading and the list, which a button inside would break. */
+const tags = $$("[data-bug]").map(el => {
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "bugtag"; b.textContent = el.dataset.tag;
+  b.setAttribute("aria-describedby", "report");
+  b.bug = el; el.tag = b;
+  (el.closest("h1") || el).before(b);
+  return b;
+});
+/* Tags sit on the dashed outline. The Work entry is shifted up into the text above it,
+   so its tag goes inside its own top padding instead. */
+function placeTags() {
+  tags.forEach(b => {
+    if (!b.isConnected || !b.offsetParent) return;
+    const p = b.offsetParent.getBoundingClientRect(), r = b.bug.getBoundingClientRect();
+    const inside = b.bug.classList.contains("work");
+    b.style.left = (r.left - p.left - 7) + "px";
+    b.style.top = (r.top - p.top + (inside ? 4 : -b.offsetHeight - 7)) + "px";
+  });
+}
+placeTags();
+window.addEventListener("resize", placeTags);
+if (document.fonts) document.fonts.ready.then(placeTags);
+
+const browser = (ua => /Edg\//.test(ua) ? "Edge" : /Firefox\//.test(ua) ? "Firefox" : /Chrome\//.test(ua) ? "Chrome" : /Safari\//.test(ua) ? "Safari" : "Browser")(navigator.userAgent);
+let pointer = "mouse", armed = null;
+
+const card = document.createElement("div"); card.className = "report"; card.id = "report"; card.setAttribute("role", "tooltip"); card.hidden = true; document.body.appendChild(card);
+function hideReport() { card.hidden = true; armed = null; }
+function showReport(el) {
+  const id = +el.dataset.bug, b = BUGS[id], r = R[id];
+  const steps = r.steps.split(". ").map(t => t.replace(/\.$/, "")).filter(Boolean).map(t => "<li>" + t + "</li>").join("");
+  const arrow = { High: "▲", Medium: "=", Low: "▼" }[b[0]];
+  card.innerHTML =
+    '<div class="hd"><span class="ic"><svg viewBox="0 0 12 12" fill="#fff" aria-hidden="true"><circle cx="6" cy="7" r="3.2"/><path d="M4 3.5 5 5M8 3.5 7 5" stroke="#fff" stroke-width="1" fill="none"/></svg></span><span class="key">Portfolio / ' + pad(id) + '</span><span class="pri ' + b[0] + '"><b>' + arrow + '</b>' + b[0] + '</span></div>' +
+    '<h4>' + b[1] + '</h4>' +
+    '<div class="row"><span class="loz">To do</span><span class="lbl">' + r.lbl + '</span></div>' +
+    '<div class="fld"><h5>Steps to reproduce</h5><ol>' + steps + '</ol></div>' +
+    '<div class="fld"><h5>Expected result</h5><div class="panel ok"><span class="pi"><svg viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><path d="M2 5.5 4 7.5 8 3"/></svg></span><span>' + r.exp + '</span></div></div>' +
+    '<div class="fld"><h5>Actual result</h5><div class="panel bad"><span class="pi"><svg viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><path d="M2.5 2.5 7.5 7.5M7.5 2.5 2.5 7.5"/></svg></span><span>' + r.act + '</span></div></div>' +
+    '<div class="det"><div><span>Reporter</span><i class="av">SZ</i>Samin Zaman</div><div><span>Assignee</span>Unassigned</div><div><span>Environment</span>' + browser + ', ' + innerWidth + ' x ' + innerHeight + '</div><div><span>Status</span>Open</div></div>' +
+    '<div class="ft">' + (pointer === "touch" ? "Tap again to file this bug" : "Click to file this bug") + '</div>';
+  card.hidden = false;
+  const rc = el.getBoundingClientRect(), cw = card.offsetWidth, ch = card.offsetHeight;
+  const left = Math.min(Math.max(12, rc.left), innerWidth - cw - 12);
+  let top = rc.bottom + 14;
+  if (top + ch > innerHeight - 12) top = Math.max(12, rc.top - ch - 14);
+  card.style.left = left + "px"; card.style.top = top + "px";
+}
+
+/* the open defect under an event target: the element itself or its tag */
+const bugAt = n => {
+  if (!n || !n.closest) return null;
+  const t = n.closest(".bugtag"); if (t) return t.bug;
+  return n.closest("[data-bug]:not(.fixed)");
+};
+document.addEventListener("pointerdown", e => { pointer = e.pointerType || "mouse"; }, true);
+document.addEventListener("mouseover", e => { const el = bugAt(e.target); if (el) showReport(el); });
+document.addEventListener("mouseout", e => {
+  const el = bugAt(e.target);
+  if (el && bugAt(e.relatedTarget) !== el && pointer !== "touch") hideReport();
+});
+document.addEventListener("focusin", e => { const el = bugAt(e.target); if (el) showReport(el); });
+document.addEventListener("focusout", e => { if (bugAt(e.target) && pointer !== "touch") hideReport(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") hideReport(); });
+window.addEventListener("scroll", () => { if (!card.hidden) hideReport(); }, { passive: true });
+
+/* On touch screens the first tap shows the report and the second tap files it */
+document.addEventListener("click", e => {
+  const el = bugAt(e.target);
+  if (!el) { if (armed) hideReport(); return; }
+  e.preventDefault();
+  if (pointer === "touch" && armed !== el) { showReport(el); armed = el; return; }
+  fileBug(el);
+});
+
+function fileBug(el) {
+  hideReport();
+  const id = +el.dataset.bug; if (found.has(id)) return;
+  found.add(id); el.classList.add("fixed"); el.tag.remove();
+  if (id === 3) el.classList.remove("broken");
+  const n = found.size, left = TOTAL - n;
+  $("#cnt").textContent = n + "/" + TOTAL;
+  $("#foot").textContent = "build #0047 · known issues: " + left;
+  const t = $("#toast");
+  t.innerHTML = left ? "<b>" + pad(id) + " filed</b> · " + BUGS[id][0] + " · " + BUGS[id][1] : "<b>All " + TOTAL + " found.</b> Build passing.";
+  t.classList.add("show"); clearTimeout(timer); timer = setTimeout(() => t.classList.remove("show"), 2400);
+  if (!left) { document.body.classList.add("stable"); $("#build").firstChild.textContent = "build passing · bugs found "; }
+}
+</script>
+</body>
+</html>

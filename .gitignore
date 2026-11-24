@@ -13,12 +13,8 @@
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
-
-# production
-/build
+# site files collected for GitHub Pages in CI
+/_site/
 
 # misc
 .DS_Store
@@ -32,13 +28,6 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
 
 # playwright
 /test-results/
