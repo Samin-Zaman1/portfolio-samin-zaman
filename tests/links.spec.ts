@@ -29,9 +29,26 @@ test("every link resolves", async ({ page, request, baseURL }) => {
   expect(broken).toEqual([]);
 });
 
+test("contact links point where they should", async ({ page }) => {
+  await page.goto("/");
+  const links = page.locator("#links");
+  await expect(links.getByRole("link", { name: "Email me" })).toHaveAttribute("href", "mailto:saminzaman7@gmail.com");
+  await expect(links.getByRole("link", { name: "GitHub" })).toHaveAttribute("href", "https://github.com/Samin-Zaman1");
+  await expect(links.getByRole("link", { name: "Resume" })).toHaveAttribute("href", "resume/Samin_Zaman_Resume.pdf");
+});
+
 test("contact links are filled in", async ({ page }) => {
-  // Known gap: CONFIG is still empty, so the page shows TODO placeholders
+  // Known gap: no LinkedIn URL yet, so one TODO placeholder remains
   test.fail();
   await page.goto("/");
   await expect(page.locator("#links .todo")).toHaveCount(0, { timeout: 2_000 });
+});
+
+test("every project links to its repo", async ({ page }) => {
+  await page.goto("/");
+  const projects = page.locator("#projects .proj");
+  await expect(projects).toHaveCount(5);
+  for (const p of await projects.all()) {
+    await expect(p.getByRole("link", { name: "Repo", exact: true })).toHaveAttribute("href", /^https:\/\/github\.com\/Samin-Zaman1\//);
+  }
 });

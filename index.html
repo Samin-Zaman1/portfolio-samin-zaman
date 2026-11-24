@@ -142,6 +142,16 @@ h1 span{display:inline-block;color:#fff;background:var(--hl);padding:0 .1em;marg
 .catch .label{display:block;margin-bottom:6px}
 .catch p{margin:0}
 
+/* projects: same rhythm as work, plus a row of links */
+.proj{padding:28px 0;border-bottom:1px solid var(--line)}
+.proj:first-child{padding-top:0}
+.proj h3{font-size:clamp(22px,2.2vw,26px);font-weight:800;letter-spacing:-.02em;line-height:1.15}
+.proj .kind{margin:6px 0 12px}
+.proj p{margin:0 0 12px;font-size:16.5px;max-width:64ch}
+.plinks{display:flex;flex-wrap:wrap;gap:6px 22px;font:500 13px var(--mono)}
+.plinks a{text-underline-offset:4px;text-decoration-color:var(--line)}
+.plinks a:hover{text-decoration-color:var(--ink)}
+
 /* contact */
 .contact{background:var(--ink);color:#fff;border-top-color:var(--hl)}
 body.stable .contact{border-top-color:var(--green)}
@@ -194,6 +204,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 2
     <span class="build" id="build">build in progress · bugs found <span id="cnt">0/3</span></span>
     <nav aria-label="Sections">
       <a href="#work">Work</a>
+      <a href="#projects">Projects</a>
       <a href="#bugs">Bugs</a>
       <a href="#adapting">Adapting</a>
       <a href="#contact">Contact</a>
@@ -249,11 +260,54 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 2
   </div>
 </section>
 
+<section class="sec" id="projects">
+  <div class="wrap">
+    <div class="split">
+    <div class="side">
+    <h2><small class="label">02 / Personal</small>Projects</h2>
+    <p class="intro">Apps I built or picked as test targets. Each repo holds the tests and what they found.</p>
+    </div>
+    <div class="main">
+    <article class="proj">
+      <h3>SauceDemo QA Suite</h3>
+      <div class="kind label">Playwright · TypeScript</div>
+      <p>Found 11 defects, including an unrounded total ($99.94999999999999), a checkout that can never finish and prices that change on every sort. Each is kept as an expected-failure test, so CI flags the fix. 38 UI and API tests.</p>
+      <p class="plinks"><a href="https://github.com/Samin-Zaman1/saucedemo-qa-suite">Repo<span aria-hidden="true"> ↗</span></a><a href="https://samin-zaman1.github.io/saucedemo-qa-suite/">Test report<span aria-hidden="true"> ↗</span></a></p>
+    </article>
+    <article class="proj">
+      <h3>Pharmacy POS</h3>
+      <div class="kind label">Playwright · Vitest · PGlite</div>
+      <p>Testing my own pharmacy app turned up a table the public key could read, password hashes included, and a reports page staff could open by typing the URL. Both fixed. About 300 tests from unit to E2E, with smoke tests and rollback after each deploy.</p>
+      <p class="plinks"><a href="https://github.com/Samin-Zaman1/bangla-medical-hall">Repo<span aria-hidden="true"> ↗</span></a></p>
+    </article>
+    <article class="proj">
+      <h3>Learners Hub</h3>
+      <div class="kind label">Postman · Jest · NestJS · GitHub Actions</div>
+      <p>An LMS I use as a test target. Found that an expired token returns 403 instead of 401, so the web client never sends the user back to log in. API unit tests in CI, plus 131 requests across five Postman collections, one per role and area.</p>
+      <p class="plinks"><a href="https://github.com/Samin-Zaman1/learners-hub">Repo<span aria-hidden="true"> ↗</span></a><a href="https://www.postman.com/samins-pm-coll/workspace/samin-s-pm-coll-workspace">Postman collections<span aria-hidden="true"> ↗</span></a><a href="#bugs">Bug reports</a></p>
+    </article>
+    <article class="proj">
+      <h3>SQA Job Alert</h3>
+      <div class="kind label">Python · unittest</div>
+      <p>Built for my own job search. Most "QA" jobs in Bangladesh are garment or pharma quality control, and most remote jobs aren't open to Bangladesh. It checks 10+ sources twice a day and keeps only what I can apply to. About 115 real job titles in unit tests keep the filter honest.</p>
+      <p class="plinks"><a href="https://github.com/Samin-Zaman1/sqa-job-alert">Repo<span aria-hidden="true"> ↗</span></a></p>
+    </article>
+    <article class="proj">
+      <h3>Mini Library</h3>
+      <div class="kind label">Vitest · GitHub Actions</div>
+      <p>Practice target for layered testing. Unit tests in CI; database and E2E layers in progress.</p>
+      <p class="plinks"><a href="https://github.com/Samin-Zaman1/mini-library">Repo<span aria-hidden="true"> ↗</span></a></p>
+    </article>
+    </div>
+    </div>
+  </div>
+</section>
+
 <section class="sec" id="bugs">
   <div class="wrap">
     <div class="split">
     <div class="side">
-    <h2><small class="label">02 / Evidence</small>Bug reports</h2>
+    <h2><small class="label">03 / Evidence</small>Bug reports</h2>
     <p class="intro">Findings from Learners Hub, my own practice project. I tested its local API with five Postman collections and logged 12 bugs: 3 high, 6 medium, 3 low. Three are shown.</p>
     </div>
     <div class="main">
@@ -271,7 +325,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 2
   <div class="wrap">
     <div class="split">
       <div class="side">
-        <h2><small class="label">03 / Adapting</small>Adapting with AI</h2>
+        <h2><small class="label">04 / Adapting</small>Adapting with AI</h2>
         <p class="intro">What I'm doing about it.</p>
       </div>
       <div class="main">
@@ -304,7 +358,12 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 2
 
 <script>
 /* Fill these in. Empty values show a dashed TODO on the page. */
-const CONFIG = { email: "", linkedin: "", github: "", resume: "" };
+const CONFIG = {
+  email: "saminzaman7@gmail.com",
+  linkedin: "",
+  github: "https://github.com/Samin-Zaman1",
+  resume: "resume/Samin_Zaman_Resume.pdf"
+};
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
